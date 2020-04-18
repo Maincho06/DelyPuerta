@@ -2,15 +2,14 @@ import 'package:delipuerta/src/Widget/bezierContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-
-class LoginPage extends StatefulWidget {
-  LoginPage({Key key}) : super(key: key);
+class RegistroPage extends StatefulWidget {
+  RegistroPage({Key key}) : super(key: key);
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _RegistroPageState createState() => _RegistroPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _RegistroPageState extends State<RegistroPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,14 +32,8 @@ class _LoginPageState extends State<LoginPage> {
                     SizedBox(
                       height: 50,
                     ),
-                    _emailPasswordWidget(),
+                    _formulario(),
                     _submitButton(),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      alignment: Alignment.centerRight,
-                      child: Text('¿ Olvidaste tu Contraseña ?',
-                      style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
-                    ),
                     //_divider(),
                     //buttonSignInSocial(),
                     Expanded(
@@ -70,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
-      text: 'Del',
+      text: 'Regi',
       style: GoogleFonts.portLligatSans(
         textStyle: Theme.of(context).textTheme.display1,
         fontSize: 40,
@@ -79,23 +72,38 @@ class _LoginPageState extends State<LoginPage> {
       ),
       children: [
         TextSpan(
-          text: 'y',
+          text: 'st',
           style: TextStyle(color: Colors.black, fontSize: 40),
         ),
         TextSpan(
-          text: 'Puerta',
+          text: 'rate',
           style: TextStyle(color: Color(0xffe46b10), fontSize: 40),
         ),
       ]),
     );
   }
 
-  Widget _emailPasswordWidget() {
-    return Column(
-      children: <Widget>[
-        _entryField("Correo"),
-        _entryField("Contraseña", isPassword: true),
-      ],
+  Widget _formulario() {
+    // return Column(
+    //   children: <Widget>[
+    //     _entryField("Dni"),
+    //     _entryField("Nombre"),
+    //     _entryField("Apellido"),
+    //     _entryField("Correo"),
+    //     _entryField("Contraseña", isPassword: true),
+    //   ],
+    // );
+    return Container(
+      height: 500,
+      child: ListView(
+        children: <Widget>[
+          _entryField("Dni"),
+          _entryField("Nombre"),
+          _entryField("Apellido"),
+          _entryField("Correo"),
+          _entryField("Contraseña", isPassword: true),
+        ],
+      )
     );
   }
 
@@ -118,109 +126,6 @@ class _LoginPageState extends State<LoginPage> {
                   border: InputBorder.none,
                   fillColor: Color(0xfff3f3f4),
                   filled: true))
-        ],
-      ),
-    );
-
-    
-  }
-
-  _divider() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                thickness: 1,
-              ),
-            ),
-          ),
-          Text('Iniciar Sesión'),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                thickness: 1,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-        ],
-      ),
-    );
-  }
-  
-  buttonSignInSocial() {
-    return Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          facebook(),
-          google(),
-        ],
-      ),
-    );
-  }
-
-  facebook() {
-    return InkWell(
-      child: Image(
-        image: AssetImage('assets/facebook.png'),
-        height: 50,
-        fit: BoxFit.fill,
-      ),
-      onTap: () async {
-        
-      },
-    );
-  }
-
-  google() {
-    return InkWell(
-      child: Image(
-        image: AssetImage('assets/google.png'),
-        height: 50,
-        fit: BoxFit.fill,
-      ),
-      onTap: () {
-      },
-    );
-  }
-
-  _createAccountLabel() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 20),
-      alignment: Alignment.bottomCenter,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text(
-            '¿ No tienes cuenta ?',
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-          ),
-          SizedBox(
-            width: 10,
-          ),
-          InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, 'registro');
-            },
-            child: Text(
-              'Registrate',
-              style: TextStyle(
-                  color: Color(0xfff79c4f),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600),
-            ),
-          )
         ],
       ),
     );
@@ -255,6 +160,37 @@ class _LoginPageState extends State<LoginPage> {
       onTap: (){
         Navigator.pushNamed(context, 'home');
       },
+    );
+  }
+
+  _createAccountLabel() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 20),
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            '¿ Ya tienes cuenta ?',
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Text(
+              'Inicia Sesión',
+              style: TextStyle(
+                  color: Color(0xfff79c4f),
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600),
+            ),
+          )
+        ],
+      ),
     );
   }
 }

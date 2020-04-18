@@ -1,3 +1,4 @@
+import 'package:delipuerta/src/pages/Login/registrate.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
       initialRoute: 'login',
       routes: {
         'login' : (BuildContext context) => LoginPage(),
+        'registro' : (BuildContext context) => RegistroPage(),
         'home'  : (BuildContext context) => HomePage()
       },
     );
