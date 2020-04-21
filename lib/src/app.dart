@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:delipuerta/src/pages/Login/login.dart';
 import 'package:delipuerta/src/pages/home_page.dart';
+import 'package:delipuerta/src/pages/pedido_page.dart';
 
 
 class MyApp extends StatelessWidget {
@@ -21,9 +22,10 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: 'login',
       routes: {
-        'login' : (BuildContext context) => LoginPage(),
-        'registro' : (BuildContext context) => RegistroPage(),
-        'home'  : (BuildContext context) => HomePage()
+        'login'     : (_) => LoginPage(),
+        'registro'  : (_) => RegistroPage(),
+        'home'      : (_) => HomePage(),
+        'pedido'    : (_) => PedidoPage()
       },
     );
   }
