@@ -41,8 +41,13 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text('¿ Olvidaste tu Contraseña ?',
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                     ),
+<<<<<<< HEAD
                     // _divider(),
                     // buttonSignInSocial(),
+=======
+                    //_divider(),
+                    //buttonSignInSocial(),
+>>>>>>> rama-registro
                     Expanded(
                       flex: 2,
                       child: SizedBox(),
@@ -211,7 +216,11 @@ class _LoginPageState extends State<LoginPage> {
           ),
           InkWell(
             onTap: () {
+<<<<<<< HEAD
               Navigator.pushNamed(context, 'home');
+=======
+              Navigator.pushNamed(context, 'registro');
+>>>>>>> rama-registro
             },
             child: Text(
               'Registrate',
@@ -253,8 +262,7 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
       onTap: (){
-        //Navigator.pushNamed(context, 'home');
-        print('CSM');
+        Navigator.pushNamed(context, 'home');
       },
     );
   }
