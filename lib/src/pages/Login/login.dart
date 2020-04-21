@@ -23,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     Expanded(
                       flex: 3,
@@ -41,8 +41,8 @@ class _LoginPageState extends State<LoginPage> {
                       child: Text('¿ Olvidaste tu Contraseña ?',
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
                     ),
-                    _divider(),
-                    buttonSignInSocial(),
+                    // _divider(),
+                    // buttonSignInSocial(),
                     Expanded(
                       flex: 2,
                       child: SizedBox(),
@@ -211,7 +211,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           InkWell(
             onTap: () {
-              
+              Navigator.pushNamed(context, 'home');
             },
             child: Text(
               'Registrate',
