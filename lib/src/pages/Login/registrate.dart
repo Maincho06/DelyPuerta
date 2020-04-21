@@ -1,6 +1,7 @@
 import 'package:delipuerta/src/Widget/bezierContainer.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:delipuerta/src/util/notificaciones_util.dart' as notificaciones;
 
 class RegistroPage extends StatefulWidget {
   RegistroPage({Key key}) : super(key: key);
@@ -10,6 +11,15 @@ class RegistroPage extends StatefulWidget {
 }
 
 class _RegistroPageState extends State<RegistroPage> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController dniController = TextEditingController();
+  TextEditingController nombreController = TextEditingController();
+  TextEditingController apellidoController = TextEditingController();
+  TextEditingController correoController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController condominioController = TextEditingController();
+  TextEditingController edificioController = TextEditingController();
+  TextEditingController departamentoController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -93,21 +103,141 @@ class _RegistroPageState extends State<RegistroPage> {
     //     _entryField("Contraseña", isPassword: true),
     //   ],
     // );
-    return Container(
-      height: 500,
-      child: ListView(
-        children: <Widget>[
-          _entryField("Dni"),
-          _entryField("Nombre"),
-          _entryField("Apellido"),
-          _entryField("Correo"),
-          _entryField("Contraseña", isPassword: true),
-        ],
-      )
+    // return Container(
+    //   height: 500,
+    //   child: ListView(
+    //     children: <Widget>[
+    //       _entryField("Dni" , dniController),
+    //       _entryField("Nombre" , nombreController),
+    //       _entryField("Apellido" , apellidoController),
+    //       _entryField("Correo" , correoController),
+    //       _entryField("Contraseña", passwordController ,isPassword: true),
+    //       _entryField("Condominio" , condominioController),
+    //       _entryField("Edificio" , edificioController),
+    //       _entryField("Departamento" , departamentoController),
+    //     ],
+    //   )
+    // );
+    return Form(
+      key: _formKey,
+      child: Container(
+        height: 400,
+        child: ListView(
+          children: formUI()
+        ),
+      ),
     );
   }
 
-  Widget _entryField(String title, {bool isPassword = false}) {
+  List<Widget> formUI() {
+    List<Widget> lwidget = [];
+    //DNI
+    final formDni = _entryField(
+      "Dni",
+      TextFormField(
+        obscureText: false,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          fillColor: Color(0xfff3f3f4),
+          filled: true
+        ),
+      )
+    );
+    //Nombre
+    final formNombre = _entryField(
+      "Nombre",
+      TextFormField(
+        obscureText: false,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          fillColor: Color(0xfff3f3f4),
+          filled: true
+        ),
+      )
+    );
+    //Apellido
+    final formApellido = _entryField(
+      "Apellido",
+      TextFormField(
+        obscureText: false,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          fillColor: Color(0xfff3f3f4),
+          filled: true
+        ),
+      )
+    );
+    //Correo
+    final formCorreo = _entryField(
+      "Correo",
+      TextFormField(
+        obscureText: false,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          fillColor: Color(0xfff3f3f4),
+          filled: true
+        ),
+      )
+    );
+    final formContrasena = _entryField(
+      "Contraseña",
+      TextFormField(
+        obscureText: true,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          fillColor: Color(0xfff3f3f4),
+          filled: true
+        ),
+      )
+    );
+    //Condominio
+    final formCondominio = _entryField(
+      "Condominio",
+      TextFormField(
+        obscureText: false,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          fillColor: Color(0xfff3f3f4),
+          filled: true
+        ),
+      )
+    );
+    //Edificio
+    final formEdificio = _entryField(
+      "Edificio",
+      TextFormField(
+        obscureText: false,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          fillColor: Color(0xfff3f3f4),
+          filled: true
+        ),
+      )
+    );
+    //Departamento
+    final formDepartamento = _entryField(
+      "Departamento",
+      TextFormField(
+        obscureText: false,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          fillColor: Color(0xfff3f3f4),
+          filled: true
+        ),
+      )
+    );
+    lwidget..add(formDni)
+           ..add(formNombre)
+           ..add(formApellido)
+           ..add(formCondominio)
+           ..add(formEdificio)
+           ..add(formDepartamento)
+           ..add(formCorreo)
+           ..add(formContrasena);
+    return lwidget;
+  }
+
+  Widget _entryField(String title, Widget form) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: Column(
@@ -120,12 +250,16 @@ class _RegistroPageState extends State<RegistroPage> {
           SizedBox(
             height: 10,
           ),
-          TextField(
-              obscureText: isPassword,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
-                  filled: true))
+          form
+          // TextField(
+          //   controller: controlador,
+          //   obscureText: isPassword,
+          //   decoration: InputDecoration(
+          //     border: InputBorder.none,
+          //     fillColor: Color(0xfff3f3f4),
+          //     filled: true)
+          // )
+
         ],
       ),
     );
@@ -158,7 +292,9 @@ class _RegistroPageState extends State<RegistroPage> {
         ),
       ),
       onTap: (){
-        Navigator.pushNamed(context, 'home');
+        if(_formKey.currentState.validate()) {
+          Navigator.pushNamed(context, 'home');
+        }
       },
     );
   }
@@ -193,4 +329,6 @@ class _RegistroPageState extends State<RegistroPage> {
       ),
     );
   }
+
+  
 }
