@@ -1,5 +1,6 @@
 import 'package:delipuerta/src/pages/Login/registrate.dart';
 import 'package:delipuerta/src/pages/Pedido/metodo_pago.dart';
+import 'package:delipuerta/src/pages/Pedido/pago_page.dart';
 import 'package:delipuerta/src/pages/Pedido/pedido_page.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         'registro'  : (_) => RegistroPage(),
         'home'      : (_) => HomePage(),
         'pedido'    : (_) => PedidoPage(),
-        'pedido/metodo_pago'    : (_) => MetodoPagoPage(),
+        //'pedido/metodo_pago'    : (_) => MetodoPagoPage(),
       },
     );
   }

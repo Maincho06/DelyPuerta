@@ -1,9 +1,11 @@
+import 'package:delipuerta/src/pages/Pedido/pago_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 final int size = 40;
 class MetodoPagoPage extends StatelessWidget {
-  const MetodoPagoPage({Key key}) : super(key: key);
+  const MetodoPagoPage(this.precioTotal);
+  final precioTotal;
   @override
   Widget build(BuildContext context) {
     Color color = Color(0xffe46b10);
@@ -27,7 +29,7 @@ class MetodoPagoPage extends StatelessWidget {
                   color: Color(0xffe46b10),
                 ),
               ),
-              Expanded(child:  _SvgPage('assets/pedidos/tarjeta.svg')),
+              Expanded(child:  _SvgPage('assets/pedidos/tarjeta.svg',"TARJETA",precioTotal)),
               Text
               ('Efectivo',
                 style: GoogleFonts.portLligatSans(
@@ -37,7 +39,7 @@ class MetodoPagoPage extends StatelessWidget {
                   color: Color(0xffe46b10),
                 ),
               ),
-              Expanded(child:  _SvgPage('assets/pedidos/efectivo.svg')),
+              Expanded(child:  _SvgPage('assets/pedidos/efectivo.svg',"EFECTIVO",precioTotal)),
               Text
               ('Yape',
                 style: GoogleFonts.portLligatSans(
@@ -47,7 +49,7 @@ class MetodoPagoPage extends StatelessWidget {
                   color: Color(0xffe46b10),
                 ),
               ),
-              Expanded(child:  _PngPage('assets/pedidos/yape.png')),
+              Expanded(child:  _PngPage('assets/pedidos/yape.png',"YAPE",precioTotal)),
             ],
           ),
         ),
@@ -62,7 +64,9 @@ class MetodoPagoPage extends StatelessWidget {
 
 class _SvgPage extends StatelessWidget {
   final String svg;
-  const _SvgPage(this.svg);
+  final String tipo;
+  final double precioTotal;
+  const _SvgPage(this.svg, this.tipo,this.precioTotal);
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +78,10 @@ class _SvgPage extends StatelessWidget {
         child: SvgPicture.asset(svg)
       ),
       onTap: () {
-        print('Veamo');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => PagoPage(tipo,precioTotal))
+        );
       },
       splashColor: Color(0xffe46b10),
     );
@@ -82,7 +89,9 @@ class _SvgPage extends StatelessWidget {
 }
 class _PngPage extends StatelessWidget {
   final String png;
-  const _PngPage(this.png);
+  final String tipo;
+  final double precioTotal;
+  const _PngPage(this.png,this.tipo,this.precioTotal);
 
   @override
   Widget build(BuildContext context) {
@@ -94,7 +103,10 @@ class _PngPage extends StatelessWidget {
         child: Image.asset(png)
       ),
       onTap: () {
-        print('Yape');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => PagoPage(tipo,precioTotal))
+        );
       },
       splashColor: Color(0xffe46b10),
     );

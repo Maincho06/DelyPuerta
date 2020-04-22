@@ -1,3 +1,4 @@
+import 'package:delipuerta/src/pages/Pedido/metodo_pago.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -11,6 +12,8 @@ class PedidoPage extends StatefulWidget {
 class _PedidoPageState extends State<PedidoPage> {
   final _estiloTexto = new TextStyle( fontSize: 15 );
   int _conteo = 0;
+  double precioPollo = 20.0;
+  double precioTotal = 0;
   Color color = Color(0xffe46b10);
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,7 @@ class _PedidoPageState extends State<PedidoPage> {
                 child: Column(
                   children: <Widget>[
                     Text('Pollo de 2.2Kg', style: TextStyle(fontSize: 30)),
-                    Text('Precio S/20.00', style: TextStyle(fontSize: 15, color: color)),
+                    Text('Precio S/ $precioPollo', style: TextStyle(fontSize: 15, color: color)),
                   ],
                 ),
               ),
@@ -121,7 +124,12 @@ class _PedidoPageState extends State<PedidoPage> {
         ),
       ),
       onTap: (){
-        Navigator.pushNamed(context, 'pedido/metodo_pago');
+        //Navigator.pushNamed(context, 'pedido/metodo_pago');
+        precioTotal = _conteo * precioPollo;
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MetodoPagoPage(precioTotal))
+        );
       },
     );
   }
