@@ -87,9 +87,17 @@ class _PagoPageState extends State<PagoPage> {
 
   _mostrarFoto() {
     return Image(
-      image: AssetImage(foto?.path ??  'assets/no-image.png'),
+      image: _definirImagen(),
       height: 300.0,
       fit: BoxFit.cover
     );
+  }
+
+  _definirImagen() {
+    if ( foto != null ) {
+      return FileImage(new File(foto.path));
+    } else {
+      return AssetImage('assets/no-image.png');
+    }
   }
 }
