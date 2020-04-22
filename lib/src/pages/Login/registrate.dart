@@ -1,6 +1,8 @@
 import 'package:delipuerta/src/Widget/bezierContainer.dart';
+import 'package:delipuerta/src/models/usuario_model.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:delipuerta/src/services/usuario_services.dart';
 import 'package:delipuerta/src/util/notificaciones_util.dart' as notificaciones;
 
 class RegistroPage extends StatefulWidget {
@@ -11,15 +13,8 @@ class RegistroPage extends StatefulWidget {
 }
 
 class _RegistroPageState extends State<RegistroPage> {
+  Usuario usuario = new Usuario();
   final _formKey = GlobalKey<FormState>();
-  TextEditingController dniController = TextEditingController();
-  TextEditingController nombreController = TextEditingController();
-  TextEditingController apellidoController = TextEditingController();
-  TextEditingController correoController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController condominioController = TextEditingController();
-  TextEditingController edificioController = TextEditingController();
-  TextEditingController departamentoController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +38,7 @@ class _RegistroPageState extends State<RegistroPage> {
                       height: 50,
                     ),
                     _formulario(),
-                    _submitButton(),
+                    submitButton(),
                     //_divider(),
                     //buttonSignInSocial(),
                     Expanded(
@@ -141,6 +136,7 @@ class _RegistroPageState extends State<RegistroPage> {
           fillColor: Color(0xfff3f3f4),
           filled: true
         ),
+        onChanged: (value) =>  usuario.dni = value,
       )
     );
     //Nombre
@@ -153,6 +149,7 @@ class _RegistroPageState extends State<RegistroPage> {
           fillColor: Color(0xfff3f3f4),
           filled: true
         ),
+        onChanged: (value) => usuario.nombre = value,
       )
     );
     //Apellido
@@ -165,6 +162,7 @@ class _RegistroPageState extends State<RegistroPage> {
           fillColor: Color(0xfff3f3f4),
           filled: true
         ),
+        onChanged: (value) => usuario.apellido = value,
       )
     );
     //Correo
@@ -177,6 +175,7 @@ class _RegistroPageState extends State<RegistroPage> {
           fillColor: Color(0xfff3f3f4),
           filled: true
         ),
+        onChanged: (value) => usuario.correo = value,
       )
     );
     final formContrasena = _entryField(
@@ -188,6 +187,7 @@ class _RegistroPageState extends State<RegistroPage> {
           fillColor: Color(0xfff3f3f4),
           filled: true
         ),
+        onChanged: (value) => usuario.contrasea = value,
       )
     );
     //Condominio
@@ -251,21 +251,12 @@ class _RegistroPageState extends State<RegistroPage> {
             height: 10,
           ),
           form
-          // TextField(
-          //   controller: controlador,
-          //   obscureText: isPassword,
-          //   decoration: InputDecoration(
-          //     border: InputBorder.none,
-          //     fillColor: Color(0xfff3f3f4),
-          //     filled: true)
-          // )
-
         ],
       ),
     );
   }
 
-  _submitButton() {
+  submitButton() {
     return InkWell(
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -287,12 +278,13 @@ class _RegistroPageState extends State<RegistroPage> {
           )
         ),
         child: Text(
-          'Iniciar Sesión',
+          'Regístrate',
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
       ),
-      onTap: (){
+      onTap: () async {
         if(_formKey.currentState.validate()) {
+          await usuarioServices.registrarUsuario(usuario);
           Navigator.pushNamed(context, 'home');
         }
       },

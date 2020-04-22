@@ -26,11 +26,19 @@ class _PedidoPageState extends State<PedidoPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: <Widget>[
-              Text( ' Cantidad de Pollos', style: _estiloTexto,),
+              Text( ' Cantidad de Pollos', style: TextStyle(fontSize: 30),),
               Image(
-                image: AssetImage('assets/pollo.png'),
+                image: AssetImage('assets/pollo5.png'),
                 width: screenWidth(context,dividedBy: 2),
-                height: screenHeight(context,dividedBy: 5),
+                height: screenHeight(context,dividedBy: 6),
+              ),
+              Container(
+                child: Column(
+                  children: <Widget>[
+                    Text('Pollo de 2.2Kg', style: TextStyle(fontSize: 30)),
+                    Text('Precio S/20.00', style: TextStyle(fontSize: 15, color: color)),
+                  ],
+                ),
               ),
               _crearBotones(),
               _submitButton()
@@ -108,12 +116,12 @@ class _PedidoPageState extends State<PedidoPage> {
           )
         ),
         child: Text(
-          'Enviar Pedido',
+          'Añadir Carrito',
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
       ),
       onTap: (){
-        //Navigator.pushNamed(context, 'home');
+        Navigator.pushNamed(context, 'pedido/metodo_pago');
       },
     );
   }
