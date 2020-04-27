@@ -1,3 +1,4 @@
+import 'package:delipuerta/src/pages/Tabs/crearEvento.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:delipuerta/src/pages/Tabs/evento.dart';
@@ -25,6 +26,7 @@ class _HomePageState extends State<HomePage> {
     switch ( paginaActual ) {
       case 0: return EventoPage();
       case 1: return PerfilPage();
+      case 2: return CrearEventoPage();
       default:
         return EventoPage();
     }
@@ -46,6 +48,10 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
           icon: FaIcon(FontAwesomeIcons.user),
           title: Text('Perfil')
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.create),
+          title: Text('Crear Evento')
         ),
       ],
     );
