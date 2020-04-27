@@ -1,5 +1,7 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:delipuerta/src/models/detalle_producto_model.dart';
+import 'package:delipuerta/src/models/evento_model.dart';
+import 'package:delipuerta/src/services/evento_services.dart';
 import 'package:delipuerta/src/util/notificaciones_util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +14,7 @@ class CrearEventoPage extends StatefulWidget {
 }
 
 class _CrearEventoPageState extends State<CrearEventoPage> {
+  EventoModel eventoModel = new EventoModel();
   final format = DateFormat("dd-MM-yyyy HH:mm");
   List<DataRow> _rowList = [];
   @override
@@ -26,7 +29,22 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: _addRow
-      )
+      ),
+      persistentFooterButtons: <Widget>[
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: RaisedButton(
+              onPressed: () {
+                eventoServices.registrarEvento(eventoModel);
+              },
+              child: Text('Crear Evento'),
+              color: Color(0xfff7892b),
+            )
+          ),
+        ),
+      ],
     );
   }
 
@@ -107,7 +125,6 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
                 ),
               );
             },
-            
           ),
           actions: <Widget>[
             FlatButton(
@@ -137,43 +154,6 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
               },
             )
           ],
-          // content: SingleChildScrollView(
-          //   child: ListBody(
-          //     children: <Widget>[
-
-          //       _entryField(
-          //         'Nombre',
-          //         TextField(
-          //           controller: name,
-          //           decoration: InputDecoration(
-          //           border: InputBorder.none,
-          //           fillColor: Color(0xfff3f3f4),
-          //           filled: true)
-          //         )
-          //       ),
-          //       _entryField(
-          //         'Descripcion',
-          //         TextField(
-          //           controller: descripcion,
-          //           decoration: InputDecoration(
-          //           border: InputBorder.none,
-          //           fillColor: Color(0xfff3f3f4),
-          //           filled: true)
-          //         )
-          //       ),
-          //       _entryField(
-          //         'Precio',
-          //         TextField(
-          //           controller: costo,
-          //           decoration: InputDecoration(
-          //           border: InputBorder.none,
-          //           fillColor: Color(0xfff3f3f4),
-          //           filled: true)
-          //         )
-          //       ),
-          //     ],
-          //   ),
-          // ),
         );
       }
     );
@@ -209,7 +189,8 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
         decoration: InputDecoration(
         border: InputBorder.none,
         fillColor: Color(0xfff3f3f4),
-        filled: true)
+        filled: true),
+        onChanged: (value) => eventoModel.eventoOrganizador = value,
       )
     );
     final nombre = _entryField(
@@ -218,7 +199,8 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
         decoration: InputDecoration(
         border: InputBorder.none,
         fillColor: Color(0xfff3f3f4),
-        filled: true)
+        filled: true),
+        onChanged: (value) => eventoModel.eventoNombre = value,
       )
     );
     final descripcion = _entryField(
@@ -227,7 +209,8 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
         decoration: InputDecoration(
         border: InputBorder.none,
         fillColor: Color(0xfff3f3f4),
-        filled: true)
+        filled: true),
+        onChanged: (value) => eventoModel.eventoDescripcion = value,
       )
     );
     final fecha = _entryField(
@@ -256,6 +239,7 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
             return currentValue;
           }
         },
+        onChanged: (value) => eventoModel.eventoFecha = value,
       )
     );
     final table = DataTable(
