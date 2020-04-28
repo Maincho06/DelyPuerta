@@ -15,6 +15,7 @@ class CrearEventoPage extends StatefulWidget {
 
 class _CrearEventoPageState extends State<CrearEventoPage> {
   EventoModel eventoModel = new EventoModel();
+  List<ProductoModel> listaProductoModel = [];
   final format = DateFormat("dd-MM-yyyy HH:mm");
   List<DataRow> _rowList = [];
   @override
@@ -36,8 +37,9 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
           child: SizedBox(
             width: MediaQuery.of(context).size.width,
             child: RaisedButton(
-              onPressed: () {
-                eventoServices.registrarEvento(eventoModel);
+              onPressed: () async {
+                int eventoId = await eventoServices.registrarEvento(eventoModel);
+                eventoServices.insertarDetalle(listaProductoModel,eventoId);
               },
               child: Text('Crear Evento'),
               color: Color(0xfff7892b),
@@ -137,6 +139,7 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
                     producto.productoNombre = name.text;
                     producto.productoDescripcion = descripcion.text;
                     producto.productoCosto = double.parse(costo.text);
+                    listaProductoModel.add(producto);
                     Navigator.of(context).pop();
                   } else {
                     mostraralerta(context, 'Error', 'Revise los datos por favor');

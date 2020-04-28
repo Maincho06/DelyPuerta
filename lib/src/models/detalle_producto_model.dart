@@ -9,7 +9,6 @@ ProductoModel productoModelFromJson(String str) => ProductoModel.fromJson(json.d
 String productoModelToJson(ProductoModel data) => json.encode(data.toJson());
 
 class ProductoModel {
-    int productoId;
     String productoNombre;
     String productoDescripcion;
     double productoCosto;
@@ -17,7 +16,6 @@ class ProductoModel {
     int eventoId;
 
     ProductoModel({
-        this.productoId,
         this.productoNombre,
         this.productoDescripcion,
         this.productoCosto,
@@ -26,7 +24,6 @@ class ProductoModel {
     });
 
     factory ProductoModel.fromJson(Map<String, dynamic> json) => ProductoModel(
-        productoId: json["productoId"],
         productoNombre: json["productoNombre"],
         productoDescripcion: json["productoDescripcion"],
         productoCosto: json["productoCosto"].toDouble(),
@@ -35,7 +32,6 @@ class ProductoModel {
     );
 
     Map<String, dynamic> toJson() => {
-        "productoId": productoId,
         "productoNombre": productoNombre,
         "productoDescripcion": productoDescripcion,
         "productoCosto": productoCosto,
