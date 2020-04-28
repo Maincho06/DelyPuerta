@@ -30,6 +30,32 @@ class EventoServices {
     });
   }
 
+    mostrarEventos() async {
+final eventos=new List();
+    
+    final urlTemp = '$URL/Eventos/mostrarEventos';
+    final response = await http.get(
+      urlTemp,
+   
+      headers: {
+        "Content-Type"  : "application/json"
+      }
+    );
+    
+    final decodeResp=jsonDecode(response.body);
+    
+    if(decodeResp==null)return [];
+    if(response.statusCode==200 && decodeResp!=null){
+    decodeResp.forEach((id){
+      
+      final prodTemp = EventoModel.fromJson(id);
+      eventos.add(prodTemp);
+    });
+    print(eventos);
+      return eventos;
+    }
+  }
+
   Future<bool> insertarDetalleEvento(ProductoModel productoModel, int eventoId) async {
     final urlTemp = '$URL/Producto/agregarProducto';
     productoModel.productoImagen = '';

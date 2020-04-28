@@ -9,6 +9,7 @@ EventoModel eventoModelFromJson(String str) => EventoModel.fromJson(json.decode(
 String eventoModelToJson(EventoModel data) => json.encode(data.toJson());
 
 class EventoModel {
+    int eventoId;
     String eventoOrganizador;
     String eventoNombre;
     String eventoDescripcion;
@@ -16,6 +17,7 @@ class EventoModel {
     int usuarioId;
 
     EventoModel({
+       this.eventoId,
         this.eventoOrganizador,
         this.eventoNombre,
         this.eventoDescripcion,
@@ -24,6 +26,7 @@ class EventoModel {
     });
 
     factory EventoModel.fromJson(Map<String, dynamic> json) => EventoModel(
+        eventoId: json["eventoId"],
         eventoOrganizador: json["eventoOrganizador"],
         eventoNombre: json["eventoNombre"],
         eventoDescripcion: json["eventoDescripcion"],

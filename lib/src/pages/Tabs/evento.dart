@@ -1,8 +1,11 @@
+import 'package:delipuerta/src/models/evento_model.dart';
+import 'package:delipuerta/src/services/evento_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/intl.dart';
 
 class EventoPage extends StatelessWidget {
-  const EventoPage({Key key}) : super(key: key);
+  EventoServices eve=new EventoServices();
 
   @override
   Widget build(BuildContext context) {
@@ -28,12 +31,61 @@ class EventoPage extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 20.0),
       child: Center(
-        child: ListView(
-          primary: false,
-          children: eventos(context)
-        ),
+        child: _crearList()
       ),
     );
+  }
+
+
+  Widget _crearList(){
+ return FutureBuilder(
+   future: eve.mostrarEventos(),
+
+   builder: (BuildContext context, AsyncSnapshot snapshot) {
+     if(snapshot.hasData ){
+       final rendici= snapshot.data;
+
+       return ListView.builder(
+         itemCount: rendici.length,
+         itemBuilder: (context, i){
+
+           return _crearvista(context, rendici[i]);
+
+         },);
+     }else{
+       return Center( child: CircularProgressIndicator());
+     }
+   },
+ );
+}
+  Widget _crearvista(BuildContext context,EventoModel rendi){
+
+  String fecha= DateFormat('yyyy-MM-dd hh:mm').format(rendi.eventoFecha);
+    return Column(
+            
+    children:<Widget>[ Padding(
+      padding: EdgeInsets.symmetric(vertical: 2.0),
+      child: InkWell(
+        child: Card(
+          elevation: 5.0,
+          child: ListTile(
+            leading: Icon(Icons.flag, color: Color(0xffe46b10)),
+            title: Text('${rendi.eventoOrganizador}'),
+            subtitle: Text(fecha),
+            contentPadding: EdgeInsets.only(left: 20.0 ,bottom: 7.0, right: 30.0),
+          )
+        ),
+        onTap: () {
+          Navigator.pushNamed(context, 'productos',arguments: rendi);
+          print('Nos Vamos');
+        },
+      ),
+    ),
+
+          ]
+
+    );
+
   }
 
   eventos(BuildContext context) {
