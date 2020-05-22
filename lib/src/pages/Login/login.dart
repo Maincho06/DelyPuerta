@@ -1,4 +1,5 @@
 import 'package:delipuerta/src/Widget/bezierContainer.dart';
+import 'package:delipuerta/src/services/login/login_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,6 +12,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+Login log = new Login();
+var email= TextEditingController();
+var contra = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
     return Column(
       children: <Widget>[
         _entryField("Correo"),
-        _entryField("Contraseña", isPassword: true),
+        _entryField2("Contraseña", isPassword: true),
       ],
     );
   }
@@ -115,6 +120,32 @@ class _LoginPageState extends State<LoginPage> {
             height: 10,
           ),
           TextField(
+            controller: email,
+              obscureText: isPassword,
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  fillColor: Color(0xfff3f3f4),
+                  filled: true))
+        ],
+      ),
+    );
+  }
+  
+  Widget _entryField2(String title, {bool isPassword = false}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            title,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          TextField(
+            controller: contra,
               obscureText: isPassword,
               decoration: InputDecoration(
                   border: InputBorder.none,
@@ -226,6 +257,21 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  _mensaje(BuildContext context, String mensaje){
+      showDialog(
+        context: context,
+        builder: (context){
+          return AlertDialog(
+            title: Text('Ingreso'),
+            content: Text(mensaje),       
+            actions: <Widget>[
+              FlatButton(onPressed: ()=> Navigator.of(context).pop(), child: Text('Ok'))
+            ], 
+          );
+        }
+    );
+  }
+
   _submitButton() {
     return InkWell(
       child: Container(
@@ -252,8 +298,23 @@ class _LoginPageState extends State<LoginPage> {
           style: TextStyle(fontSize: 20, color: Colors.white),
         ),
       ),
-      onTap: (){
-        Navigator.pushNamed(context, 'home');
+      onTap: ()async{
+        print(email.text+ " "+contra.text);
+
+          
+            final resp=await log.login(email.text, contra.text);
+            print(resp);
+            
+            if(resp['ok']){
+
+              _mensaje(context,resp['mensaje']);
+              //Navigator.pushNamedAndRemoveUntil(context, 'videocall', (_)=>false);
+              Navigator.pushNamed(context, 'home');
+            
+            }else{
+              _mensaje(context,resp['mensaje']);
+            }
+      //  Navigator.pushNamed(context, 'home');
       },
     );
   }

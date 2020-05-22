@@ -77,7 +77,7 @@ boton(){
 
                 }
                 },
-                child: Text('Añadir al carrito  (\$ $precioTotal)'),
+                child: Text('Añadir al carrito  (S/ $precioTotal)'),
                 color: Color(0xfff7892b),
               )
             ),
@@ -105,51 +105,60 @@ boton(){
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            FloatingActionButton(
-              heroTag: "btnAñadir",
-              child: Icon(Icons.remove),
-              backgroundColor: Colors.red,
-              
-              onPressed: (){
+            Container(
+              width: 40,
+              height: 40,
+              child: FloatingActionButton(
                 
-                 if(conteo[i]>0){
+                heroTag: "btnAñadir",
+                child: Icon(Icons.remove),
+                backgroundColor: Colors.red,
+                
+                onPressed: (){
                   
-              preciopro=rendi.productoCosto;
-              
-               
-              setState(() {
-                 conteo[i]-=1;
-                 precioTotal-=preciopro;
-                  print('$precioTotal  ${conteo[i]}  $preciopro');
-              });
-                 }
-
+                   if(conteo[i]>0){
+                    
+                preciopro=rendi.productoCosto;
                 
-               
-              },
-              
+                 
+                setState(() {
+                   conteo[i]-=1;
+                   precioTotal-=preciopro;
+                    print('$precioTotal  ${conteo[i]}  $preciopro');
+                });
+                   }
+
+                  
+                 
+                },
+                
+              ),
             ),
             
             
           Text('${conteo[i]}'),
-            FloatingActionButton(
-              heroTag: "btnRestar",
-              child: Icon(Icons.add),
-              backgroundColor: Colors.red,
-              onPressed: (){
-              
-                  preciopro=rendi.productoCosto;
-          
+            Container(
+              width: 40,
+              height: 40,
+              child: FloatingActionButton(
+                heroTag: "btnRestar",
+                child: Icon(Icons.add),
+                backgroundColor: Colors.red,
+                onPressed: (){
                 
-               
-              setState(() {
-                conteo[i]+=1;
-                 precioTotal+=preciopro;
-                  print('$precioTotal  ${conteo[i]}  $preciopro');
-              });
-               
-              
-              },
+                    preciopro=rendi.productoCosto;
+          
+                  
+                 
+                setState(() {
+                  conteo[i]+=1;
+                   precioTotal+=preciopro;
+                    print('$precioTotal  ${conteo[i]}  $preciopro');
+                });
+                 
+                
+                },
+              ),
             )
           ],
         ),
@@ -175,7 +184,7 @@ boton(){
      
            
               Text(rendi.productoNombre,style: TextStyle( fontWeight: FontWeight.w700),textAlign: TextAlign.start,),
-               Text('\$ ${rendi.productoCosto}'),
+               Text('S/ ${rendi.productoCosto}'),
               Text(rendi.productoDescripcion),
            _crearBotones(rendi,mostrar,i)
         

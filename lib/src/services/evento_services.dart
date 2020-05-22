@@ -2,10 +2,12 @@ import 'dart:convert';
 
 import 'package:delipuerta/src/models/detalle_producto_model.dart';
 import 'package:delipuerta/src/models/evento_model.dart';
+import 'package:delipuerta/src/share_prefs/preferencias.dart';
 import 'package:http/http.dart' as http;
 
 class EventoServices {
   static const URL = 'https://api-pollo.herokuapp.com';
+   PreferenciasUsuario _prefs = new PreferenciasUsuario();
 
   Future<int> registrarEvento(EventoModel eventoModel) async {
     eventoModel.usuarioId = 1;
@@ -14,7 +16,8 @@ class EventoServices {
       urlTemp,
       body: eventoModelToJson(eventoModel),
       headers: {
-        "Content-Type"  : "application/json"
+        "Content-Type"  : "application/json",
+        "authorization" : _prefs.token
       }
     );
     print('Response status: ${response.statusCode}');
@@ -38,7 +41,8 @@ final eventos=new List();
       urlTemp,
    
       headers: {
-        "Content-Type"  : "application/json"
+        "Content-Type"  : "application/json",
+        "authorization" : _prefs.token
       }
     );
     
@@ -64,7 +68,8 @@ final eventos=new List();
       urlTemp,
       body: productoModelToJson(productoModel),
       headers: {
-        "Content-Type"  : "application/json"
+        "Content-Type"  : "application/json",
+        "authorization" : _prefs.token
       }
     );
     print('Response status: ${response.statusCode}');
