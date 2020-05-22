@@ -1,10 +1,13 @@
 import 'dart:convert';
 
 import 'package:delipuerta/src/models/usuario_model.dart';
+import 'package:delipuerta/src/share_prefs/preferencias.dart';
 import 'package:http/http.dart' as http;
 
 class UsuarioServices {
   final String url = 'https://api-pollo.herokuapp.com';
+     PreferenciasUsuario _prefs = new PreferenciasUsuario();
+
 
   mostrarEventos() async {
     final urlTemp = '$url/Eventos/mostrarEventos';
@@ -12,7 +15,9 @@ class UsuarioServices {
       urlTemp,
    
       headers: {
-        "Content-Type"  : "application/json"
+        "Content-Type"  : "application/json",
+        "authorization" : _prefs.token
+
       }
     );
     print('Response status: ${response.statusCode}');

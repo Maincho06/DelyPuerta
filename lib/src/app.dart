@@ -3,6 +3,8 @@ import 'package:delipuerta/src/pages/Pedido/metodo_pago.dart';
 import 'package:delipuerta/src/pages/Pedido/pago_page.dart';
 import 'package:delipuerta/src/pages/Pedido/pedido_page.dart';
 import 'package:delipuerta/src/pages/Pedido/producto_page.dart';
+import 'package:delipuerta/src/pages/Tabs/crearProducto.dart';
+import 'package:delipuerta/src/share_prefs/preferencias.dart';
 import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
@@ -10,7 +12,16 @@ import 'package:delipuerta/src/pages/Login/login.dart';
 import 'package:delipuerta/src/pages/home_page.dart';
 
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+
+  
+
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -30,6 +41,7 @@ class MyApp extends StatelessWidget {
         'home'      : (_) => HomePage(),
         'pedido'    : (_) => PedidoPage(),
         'productos' : (_) => ProductoPage(),
+        'crearproducto' : (_) => CrearProducto(),
         //'pedido/metodo_pago'    : (_) => MetodoPagoPage(),
       },
     );

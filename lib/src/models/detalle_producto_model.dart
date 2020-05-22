@@ -28,7 +28,7 @@ class ProductoModel {
         productoDescripcion: json["productoDescripcion"],
         productoCosto: json["productoCosto"].toDouble(),
         productoImagen: json["productoImagen"],
-        eventoId: json["eventoId"],
+        eventoId: json["empresaId"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -36,6 +36,6 @@ class ProductoModel {
         "productoDescripcion": productoDescripcion,
         "productoCosto": productoCosto,
         "productoImagen": productoImagen,
-        "eventoId": eventoId,
+        "empresaId": eventoId,
     };
 }

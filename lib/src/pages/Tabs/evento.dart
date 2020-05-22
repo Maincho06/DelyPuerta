@@ -70,7 +70,7 @@ class EventoPage extends StatelessWidget {
           elevation: 5.0,
           child: ListTile(
             leading: Icon(Icons.flag, color: Color(0xffe46b10)),
-            title: Text('${rendi.eventoOrganizador}'),
+            title: Text('${rendi.eventoNombre}'),
             subtitle: Text(fecha),
             contentPadding: EdgeInsets.only(left: 20.0 ,bottom: 7.0, right: 30.0),
           )
