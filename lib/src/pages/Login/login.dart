@@ -2,10 +2,10 @@ import 'package:delipuerta/src/Widget/bezierContainer.dart';
 import 'package:delipuerta/src/services/login/login_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/cupertino.dart';
 
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key}) : super(key: key);
 
   @override
   _LoginPageState createState() => _LoginPageState();
@@ -15,7 +15,8 @@ class _LoginPageState extends State<LoginPage> {
 Login log = new Login();
 var email= TextEditingController();
 var contra = TextEditingController();
-  
+    var _isFetching=false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,7 +57,13 @@ var contra = TextEditingController();
                     ),
                   ],
                 ),
-              ),
+              ),_isFetching? Positioned.fill(child: Container(
+     color: Colors.black45,
+     child: Center(
+       child: CupertinoActivityIndicator( radius: 15,),
+     ),
+   )):Container(),
+               
               Align(
                 alignment: Alignment.bottomCenter,
                 child: _createAccountLabel(),
@@ -299,6 +306,11 @@ var contra = TextEditingController();
         ),
       ),
       onTap: ()async{
+            if(_isFetching) return;
+                      setState(() {
+                        _isFetching=true;
+                      });
+
         print(email.text+ " "+contra.text);
 
           
@@ -306,12 +318,13 @@ var contra = TextEditingController();
             print(resp);
             
             if(resp['ok']){
-
+               _isFetching=false;
               _mensaje(context,resp['mensaje']);
               //Navigator.pushNamedAndRemoveUntil(context, 'videocall', (_)=>false);
-              Navigator.pushNamed(context, 'home');
+              Navigator.pushNamed(context, 'splash');
             
             }else{
+               _isFetching=false;
               _mensaje(context,resp['mensaje']);
             }
       //  Navigator.pushNamed(context, 'home');

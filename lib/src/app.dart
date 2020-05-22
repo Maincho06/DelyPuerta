@@ -1,9 +1,11 @@
 import 'package:delipuerta/src/pages/Login/registrate.dart';
+import 'package:delipuerta/src/pages/Login/splash.dart';
 import 'package:delipuerta/src/pages/Pedido/metodo_pago.dart';
 import 'package:delipuerta/src/pages/Pedido/pago_page.dart';
 import 'package:delipuerta/src/pages/Pedido/pedido_page.dart';
 import 'package:delipuerta/src/pages/Pedido/producto_page.dart';
 import 'package:delipuerta/src/pages/Tabs/crearProducto.dart';
+import 'package:delipuerta/src/services/notificaciones/push_notification.dart';
 import 'package:delipuerta/src/share_prefs/preferencias.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +24,18 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+@override
+  void initState() { 
+    final pushNotificationProvider= new PushNotificationProvider();    
+    pushNotificationProvider.initNotifications();
+    super.initState();
+    pushNotificationProvider.mensajes.listen((onData){
+      print(onData);
+      //navigatorKey.currentState.pushNamed(onData,arguments: onData);
+    }); 
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -42,6 +56,7 @@ class _MyAppState extends State<MyApp> {
         'pedido'    : (_) => PedidoPage(),
         'productos' : (_) => ProductoPage(),
         'crearproducto' : (_) => CrearProducto(),
+        'splash': (_) => Splash(),
         //'pedido/metodo_pago'    : (_) => MetodoPagoPage(),
       },
     );
