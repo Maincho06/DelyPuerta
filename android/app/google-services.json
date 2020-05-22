@@ -1,0 +1,49 @@
+{
+    "project_info": {
+        "project_number": "252011148220",
+        "firebase_url": "https://delypuerta.firebaseio.com",
+        "project_id": "delypuerta",
+        "storage_bucket": "delypuerta.appspot.com"
+    },
+    "client": [{
+        "client_info": {
+            "mobilesdk_app_id": "1:252011148220:android:b0818bf7e20181fa24b1b9",
+            "android_client_info": {
+                "package_name": "com.example.delipuerta"
+            }
+        },
+        "oauth_client": [{
+                "client_id": "252011148220-h9m30htc24g4cg9ppqi29f3j3uveji4b.apps.googleusercontent.com",
+                "client_type": 1,
+                "android_info": {
+                    "package_name": "com.example.delipuerta",
+                    "certificate_hash": "0e52c4f12146d409b3a9e9ba63a8c60195469ac1"
+                }
+            },
+            {
+                "client_id": "252011148220-dv2fcn8kvlonc2vka18tknbe2d0les2h.apps.googleusercontent.com",
+                "client_type": 3
+            }
+        ],
+        "api_key": [{
+            "current_key": "AIzaSyDpoTlso1d9qhDVE2qV4IxleEmcxi96Mxk"
+        }],
+        "services": {
+            "appinvite_service": {
+                "other_platform_oauth_client": [{
+                        "client_id": "252011148220-dv2fcn8kvlonc2vka18tknbe2d0les2h.apps.googleusercontent.com",
+                        "client_type": 3
+                    },
+                    {
+                        "client_id": "252011148220-i5tmeh4vnb0qap7lrcs03n8sm1ek2h44.apps.googleusercontent.com",
+                        "client_type": 2,
+                        "ios_info": {
+                            "bundle_id": "com.example.appfireba"
+                        }
+                    }
+                ]
+            }
+        }
+    }],
+    "configuration_version": "1"
+}
