@@ -2,6 +2,7 @@ import 'package:delipuerta/src/models/detalle_producto_model.dart';
 import 'package:delipuerta/src/models/evento_model.dart';
 import 'package:delipuerta/src/services/productos_services.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ProductoPage extends StatefulWidget {
   @override
@@ -9,9 +10,11 @@ class ProductoPage extends StatefulWidget {
 }
 
 class _ProductoPageState extends State<ProductoPage> {
+
+  var f = new NumberFormat("###.0#", "en_US");
   ProductoService proser=new ProductoService();
 
-  double precioTotal = 0;
+  double precioTotal = double.parse((0.00).toStringAsFixed(2));
  
   List<int> conteo=new List(100);
 
@@ -77,7 +80,7 @@ boton(){
 
                 }
                 },
-                child: Text('Añadir al carrito  (S/ $precioTotal)'),
+                child: Text('Añadir al carrito  (S/ ${precioTotal})'),
                 color: Color(0xfff7892b),
               )
             ),
@@ -118,12 +121,12 @@ boton(){
                   
                    if(conteo[i]>0){
                     
-                preciopro=rendi.productoCosto;
+                preciopro=   double.parse((rendi.productoCosto).toStringAsFixed(2));
                 
                  
                 setState(() {
                    conteo[i]-=1;
-                   precioTotal-=preciopro;
+                   precioTotal= double.parse((precioTotal -preciopro).toStringAsFixed(2));
                     print('$precioTotal  ${conteo[i]}  $preciopro');
                 });
                    }
@@ -146,13 +149,16 @@ boton(){
                 backgroundColor: Colors.red,
                 onPressed: (){
                 
-                    preciopro=rendi.productoCosto;
+                    preciopro=  double.parse((rendi.productoCosto).toStringAsFixed(2));
           
                   
                  
                 setState(() {
                   conteo[i]+=1;
-                   precioTotal+=preciopro;
+                   precioTotal=  double.parse((preciopro+precioTotal).toStringAsFixed(2));
+                   if(precioTotal<0){
+                     precioTotal=0.00;
+                   }
                     print('$precioTotal  ${conteo[i]}  $preciopro');
                 });
                  
