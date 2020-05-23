@@ -48,7 +48,7 @@ class _MyAppState extends State<MyApp> {
           body1: GoogleFonts.montserrat(textStyle: textTheme.body1),
         )
       ),
-      initialRoute: 'login',
+      initialRoute: 'splash',
       routes: {
         'login'     : (_) => LoginPage(),
         'registro'  : (_) => RegistroPage(),
