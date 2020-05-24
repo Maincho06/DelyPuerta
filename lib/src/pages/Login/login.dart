@@ -318,13 +318,17 @@ var contra = TextEditingController();
             print(resp);
             
             if(resp['ok']){
-               _isFetching=false;
+              setState(() {
+                    _isFetching=false;
+            });
               _mensaje(context,resp['mensaje']);
               //Navigator.pushNamedAndRemoveUntil(context, 'videocall', (_)=>false);
               Navigator.pushNamed(context, 'splash');
             
             }else{
-               _isFetching=false;
+                  setState(() {
+                    _isFetching=false;
+                  });
               _mensaje(context,resp['mensaje']);
             }
       //  Navigator.pushNamed(context, 'home');
