@@ -37,8 +37,6 @@ dependencies:
   firebase_messaging:
   permission_handler: ^3.0.0
 
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

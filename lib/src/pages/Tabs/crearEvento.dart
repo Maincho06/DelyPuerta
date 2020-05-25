@@ -6,6 +6,8 @@ import 'package:delipuerta/src/util/notificaciones_util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
+import 'crearProducto.dart';
+
 class CrearEventoPage extends StatefulWidget {
   CrearEventoPage({Key key}) : super(key: key);
 
@@ -84,47 +86,52 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
             builder: (context) {
               var height = MediaQuery.of(context).size.height;
               var width = MediaQuery.of(context).size.width;
+              // return Container(
+              //   height: height - height/3,
+              //   width: width,
+              //   child: SingleChildScrollView(
+              //     child: ListBody(
+              //       children: <Widget>[
+              //         _entryField(
+              //           'Nombre',
+              //           TextField(
+              //             controller: name,
+              //             decoration: InputDecoration(
+              //             border: InputBorder.none,
+              //             fillColor: Color(0xfff3f3f4),
+              //             filled: true)
+              //           )
+              //         ),
+              //         _entryField(
+              //           'Descripcion',
+              //           TextField(
+              //             controller: descripcion,
+              //             decoration: InputDecoration(
+              //             border: InputBorder.none,
+              //             fillColor: Color(0xfff3f3f4),
+              //             filled: true)
+              //           )
+              //         ),
+              //         _entryField(
+              //           'Precio',
+              //           TextField(
+              //             controller: costo,
+              //             decoration: InputDecoration(
+              //             border: InputBorder.none,
+              //             fillColor: Color(0xfff3f3f4),
+              //             filled: true),
+              //             keyboardType: TextInputType.numberWithOptions(decimal: true),
+              //           )
+                        
+              //         ),
+              //       ],
+              //     ),
+              //   ),
+              // );
               return Container(
                 height: height - height/3,
                 width: width,
-                child: SingleChildScrollView(
-                  child: ListBody(
-                    children: <Widget>[
-                      _entryField(
-                        'Nombre',
-                        TextField(
-                          controller: name,
-                          decoration: InputDecoration(
-                          border: InputBorder.none,
-                          fillColor: Color(0xfff3f3f4),
-                          filled: true)
-                        )
-                      ),
-                      _entryField(
-                        'Descripcion',
-                        TextField(
-                          controller: descripcion,
-                          decoration: InputDecoration(
-                          border: InputBorder.none,
-                          fillColor: Color(0xfff3f3f4),
-                          filled: true)
-                        )
-                      ),
-                      _entryField(
-                        'Precio',
-                        TextField(
-                          controller: costo,
-                          decoration: InputDecoration(
-                          border: InputBorder.none,
-                          fillColor: Color(0xfff3f3f4),
-                          filled: true),
-                          keyboardType: TextInputType.numberWithOptions(decimal: true),
-                        )
-                        
-                      ),
-                    ],
-                  ),
-                ),
+                child: CrearProducto(evento: true,)
               );
             },
           ),

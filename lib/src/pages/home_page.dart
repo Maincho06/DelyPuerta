@@ -4,6 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:delipuerta/src/pages/Tabs/evento.dart';
 import 'package:delipuerta/src/pages/Tabs/perfil.dart';
 
+import 'Tabs/crearProducto.dart';
+
 class HomePage extends StatefulWidget {
   
   const HomePage({Key key}) : super(key: key);
@@ -27,6 +29,7 @@ class _HomePageState extends State<HomePage> {
       case 0: return EventoPage();
       case 1: return PerfilPage();
       case 2: return CrearEventoPage();
+      case 3: return CrearProducto(evento: false,);
       default:
         return EventoPage();
     }
@@ -34,6 +37,7 @@ class _HomePageState extends State<HomePage> {
 
   _crearBottomNavigationBar() {
     return BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
       currentIndex: currentIndex,
       onTap: (index) {
         setState(() {
@@ -52,6 +56,10 @@ class _HomePageState extends State<HomePage> {
         BottomNavigationBarItem(
           icon: Icon(Icons.create),
           title: Text('Crear Evento')
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.create),
+          title: Text('Producto')
         ),
       ],
     );
