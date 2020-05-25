@@ -1,9 +1,11 @@
 import 'dart:async';
 
+import 'package:delipuerta/src/models/provider_model.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:delipuerta/src/models/producto_model.dart';
 import 'package:delipuerta/src/pages/Producto/detallesProducto.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CrearProducto extends StatefulWidget {
   const CrearProducto({Key key,this.evento}) : super(key: key);
@@ -29,7 +31,6 @@ class _CrearProductoState extends State<CrearProducto> {
 
   @override
   Widget build(BuildContext context) {
-    // final productoProvider = Provider.of<ProductoProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Prueba Firebase'),
@@ -43,7 +44,7 @@ class _CrearProductoState extends State<CrearProducto> {
             child:  CardProducto(producto: productos[index],context: context,),
             onDismissed: (direction) {
               print(direction);
-              // productoProvider.prueba = productos[index].nombre;
+              print(productos[index].nombre);
             },
           );
         },
@@ -86,11 +87,13 @@ class CardProducto extends StatelessWidget {
   final BuildContext context;
   @override
   Widget build(BuildContext context) {
+    final productoProvider = Provider.of<ProductoProvider>(context);
     return InkWell(
       onTap: () {
         print('Funciona');
-        Navigator.push(context,
-        MaterialPageRoute(builder: (context) => FormProducto(title: 'Editar Producto',producto: producto)));
+        // productoProvider.prueba = producto.nombre;
+        // Navigator.push(context,
+        // MaterialPageRoute(builder: (context) => FormProducto(title: 'Editar Producto',producto: producto)));
         
       },
       child: Card(

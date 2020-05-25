@@ -1,8 +1,10 @@
+import 'package:delipuerta/src/models/provider_model.dart';
 import 'package:delipuerta/src/pages/Tabs/crearEvento.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:delipuerta/src/pages/Tabs/evento.dart';
 import 'package:delipuerta/src/pages/Tabs/perfil.dart';
+import 'package:provider/provider.dart';
 
 import 'Tabs/crearProducto.dart';
 
@@ -18,9 +20,12 @@ class _HomePageState extends State<HomePage> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _callPage(currentIndex),
-      bottomNavigationBar: _crearBottomNavigationBar(),
+    return ChangeNotifierProvider(
+      create: (_) => ProductoProvider(),
+      child: Scaffold(
+        body: _callPage(currentIndex),
+        bottomNavigationBar: _crearBottomNavigationBar(),
+      ),
     );
   }
 

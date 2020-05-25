@@ -1,10 +1,12 @@
 import 'package:datetime_picker_formfield/datetime_picker_formfield.dart';
 import 'package:delipuerta/src/models/detalle_producto_model.dart';
 import 'package:delipuerta/src/models/evento_model.dart';
+import 'package:delipuerta/src/models/provider_model.dart';
 import 'package:delipuerta/src/services/evento_services.dart';
 import 'package:delipuerta/src/util/notificaciones_util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 import 'crearProducto.dart';
 
@@ -22,11 +24,12 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
   List<DataRow> _rowList = [];
   @override
   Widget build(BuildContext context) {
+    final productoProvider = Provider.of<ProductoProvider>(context);
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: ListView(
-          children: _camposEvento()
+          children: _camposEvento(productoProvider)
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -190,7 +193,7 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
     );
   }
 
-  _camposEvento() {
+  _camposEvento(ProductoProvider productoProvider) {
     List<Widget> lista = [];
     
     final organizador = _entryField(
@@ -260,10 +263,13 @@ class _CrearEventoPageState extends State<CrearEventoPage> {
       ],
       rows: _rowList,
     );
+
+    // final pruebaWidget =  productoProvider.prueba != null ? Text(productoProvider.prueba) : Text('Veamos');
     lista..add(organizador)
          ..add(nombre)
          ..add(descripcion)
          ..add(fecha)
+        //  ..add(pruebaWidget)
          ..add(table);
     return lista;
   }
