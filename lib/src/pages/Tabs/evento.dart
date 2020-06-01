@@ -3,6 +3,7 @@ import 'package:delipuerta/src/services/evento_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class EventoPage extends StatelessWidget {
   EventoServices eve=new EventoServices();
@@ -35,6 +36,7 @@ class EventoPage extends StatelessWidget {
       ),
     );
   }
+
 
 
   Widget _crearList(){
