@@ -1,5 +1,6 @@
 import 'package:delipuerta/src/pages/Login/registrate.dart';
 import 'package:delipuerta/src/pages/Login/splash.dart';
+import 'package:delipuerta/src/pages/Pedido/items_page.dart';
 import 'package:delipuerta/src/pages/Pedido/metodo_pago.dart';
 import 'package:delipuerta/src/pages/Pedido/pago_page.dart';
 import 'package:delipuerta/src/pages/Pedido/pedido_page.dart';
@@ -57,6 +58,7 @@ class _MyAppState extends State<MyApp> {
         'productos' : (_) => ProductoPage(),
         'crearproducto' : (_) => CrearProducto(),
         'splash': (_) => Splash(),
+        'items': (_) => ItemsPage(),
         //'pedido/metodo_pago'    : (_) => MetodoPagoPage(),
       },
     );

@@ -181,7 +181,7 @@ boton(){
       child: Column(
         children: <Widget>[
           Container(
-            
+            height: 100,
             width: 100,
               padding: const EdgeInsets.all(8),
             child: Image.network(rendi.productoImagen),
