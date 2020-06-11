@@ -14,24 +14,25 @@ class CarritoPage extends StatefulWidget {
 class _CarritoPageState extends State<CarritoPage> {
  List<ProductoModel> soloProductos;
  List<int> cantidadP;
+ int idEvento;
 
   @override
   Widget build(BuildContext context) {
     final List productos = ModalRoute.of(context).settings.arguments;
- 
+    idEvento=productos[productos.length-1];
     soloProductos= new List();
     cantidadP= new List();
     return Scaffold(
       appBar: AppBar(title: Text("Detalle de Carrito")),
       body: Stack(children: <Widget>[
         ListView.builder(
-            itemCount: (productos.length - 2),
+            itemCount: (productos.length - 3),
             itemBuilder: (context, i) {
-              soloProductos.add(productos[productos.length - 2][i]);
+              soloProductos.add(productos[productos.length - 3][i]);
               cantidadP.add(productos[i]);
-              return _crearFilasProducto(context, productos[productos.length - 2][i], i, productos[i]);
+              return _crearFilasProducto(context, productos[productos.length - 3][i], i, productos[i]);
             }),
-        boton(productos[productos.length - 1])
+        boton(productos[productos.length - 2])
       ]),
     );
   }
@@ -71,8 +72,8 @@ class _CarritoPageState extends State<CarritoPage> {
             width: MediaQuery.of(context).size.width,
             child: RaisedButton(
                 onPressed: () async{
-                  int pedidoId = await pedidoServices.registrarPedido(soloProductos[0].empresaId);
-                 await pedidoServices.insertarItems(soloProductos,cantidadP,pedidoId);
+                  int pedidoId = await pedidoServices.registrarPedido(idEvento);
+                  pedidoServices.insertarItems(soloProductos,cantidadP,pedidoId);
 
                   Navigator.pushNamed(context, 'home');
                 },
