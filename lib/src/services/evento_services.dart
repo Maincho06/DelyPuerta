@@ -57,7 +57,7 @@ class EventoServices {
       ProductoModel productoModel, int eventoId) async {
     final urlTemp = '$URL/Producto/agregarProducto';
     productoModel.productoImagen = '';
-    productoModel.eventoId = eventoId;
+    productoModel.empresaId = eventoId;
     final response = await http.post(urlTemp,
         body: productoModelToJson(productoModel),
         headers: {

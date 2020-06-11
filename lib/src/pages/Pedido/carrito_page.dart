@@ -71,8 +71,8 @@ class _CarritoPageState extends State<CarritoPage> {
             width: MediaQuery.of(context).size.width,
             child: RaisedButton(
                 onPressed: () async{
-                  int pedidoId = await pedidoServices.registrarPedido(soloProductos[0].eventoId);
-                  pedidoServices.insertarItems(soloProductos,cantidadP,pedidoId);
+                  int pedidoId = await pedidoServices.registrarPedido(soloProductos[0].empresaId);
+                 await pedidoServices.insertarItems(soloProductos,cantidadP,pedidoId);
 
                   Navigator.pushNamed(context, 'home');
                 },

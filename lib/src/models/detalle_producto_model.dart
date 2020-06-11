@@ -14,7 +14,7 @@ class ProductoModel {
     String productoDescripcion;
     double productoCosto;
     String productoImagen;
-    int eventoId;
+    int empresaId;
 
     ProductoModel({
       this.productoId,
@@ -22,7 +22,7 @@ class ProductoModel {
         this.productoDescripcion,
         this.productoCosto,
         this.productoImagen,
-        this.eventoId,
+        this.empresaId,
     });
 
     factory ProductoModel.fromJson(Map<String, dynamic> json) => ProductoModel(
@@ -31,7 +31,7 @@ class ProductoModel {
         productoDescripcion: json["productoDescripcion"],
         productoCosto: json["productoCosto"].toDouble(),
         productoImagen: json["productoImagen"],
-        eventoId: json["empresaId"],
+        empresaId: json["empresaId"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -40,6 +40,6 @@ class ProductoModel {
         "productoDescripcion": productoDescripcion,
         "productoCosto": productoCosto,
         "productoImagen": productoImagen,
-        "empresaId": eventoId,
+        "empresaId": empresaId,
     };
 }
