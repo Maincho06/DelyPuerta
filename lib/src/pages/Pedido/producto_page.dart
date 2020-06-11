@@ -167,10 +167,7 @@ class _ProductoPageState extends State<ProductoPage> {
       child: Column(
         children: <Widget>[
           Container(
-<<<<<<< HEAD
             height: 100,
-=======
->>>>>>> 35112426380f7743c189b062772ad48ffb0a0a58
             width: 100,
             padding: const EdgeInsets.all(8),
             child: Image.network(rendi.productoImagen),
