@@ -1,4 +1,5 @@
 import 'package:delipuerta/src/models/provider_model.dart';
+import 'package:delipuerta/src/pages/Pedido/mispedidos_page.dart';
 import 'package:delipuerta/src/pages/Tabs/crearEvento.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -32,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   _callPage(int paginaActual) {
     switch ( paginaActual ) {
       case 0: return EventoPage();
-      case 1: return PerfilPage();
+      case 1: return MisPedidosPage();
       case 2: return CrearEventoPage();
       case 3: return CrearProducto(evento: false,);
       default:

@@ -1,5 +1,6 @@
 import 'package:delipuerta/src/pages/Login/registrate.dart';
 import 'package:delipuerta/src/pages/Login/splash.dart';
+import 'package:delipuerta/src/pages/Pedido/items_page.dart';
 import 'package:delipuerta/src/pages/Pedido/metodo_pago.dart';
 import 'package:delipuerta/src/pages/Pedido/pago_page.dart';
 import 'package:delipuerta/src/pages/Pedido/carrito_page.dart';
@@ -51,7 +52,7 @@ class _MyAppState extends State<MyApp> {
             body1: GoogleFonts.montserrat(textStyle: textTheme.body1),
           )
         ),
-        initialRoute: 'login',
+        initialRoute: 'splash',
         routes: {
           'login'     : (_) => LoginPage(),
           'registro'  : (_) => RegistroPage(),

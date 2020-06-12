@@ -1,37 +1,49 @@
 // To parse this JSON data, do
 //
-//     final productoModel = productoModelFromJson(jsonString);
+//     final itemsModel = itemsModelFromJson(jsonString);
 
 import 'dart:convert';
 
-ProductoModel productoModelFromJson(String str) => ProductoModel.fromJson(json.decode(str));
+ItemsModel itemsModelFromJson(String str) => ItemsModel.fromJson(json.decode(str));
 
-String productoModelToJson(ProductoModel data) => json.encode(data.toJson());
+String itemsModelToJson(ItemsModel data) => json.encode(data.toJson());
 
-class ProductoModel {
+class ItemsModel {
     int productoId;
     String productoNombre;
     String productoDescripcion;
     double productoCosto;
     String productoImagen;
     int empresaId;
+    int itemId;
+    int eventoId;
+    int cantidad;
+    int pedidoId;
 
-    ProductoModel({
-      this.productoId,
+    ItemsModel({
+        this.productoId,
         this.productoNombre,
         this.productoDescripcion,
         this.productoCosto,
         this.productoImagen,
         this.empresaId,
+        this.itemId,
+        this.eventoId,
+        this.cantidad,
+        this.pedidoId,
     });
 
-    factory ProductoModel.fromJson(Map<String, dynamic> json) => ProductoModel(
+    factory ItemsModel.fromJson(Map<String, dynamic> json) => ItemsModel(
         productoId: json["productoId"],
         productoNombre: json["productoNombre"],
         productoDescripcion: json["productoDescripcion"],
         productoCosto: json["productoCosto"].toDouble(),
         productoImagen: json["productoImagen"],
         empresaId: json["empresaId"],
+        itemId: json["itemId"],
+        eventoId: json["eventoId"],
+        cantidad: json["cantidad"],
+        pedidoId: json["pedidoId"],
     );
 
     Map<String, dynamic> toJson() => {
@@ -41,5 +53,9 @@ class ProductoModel {
         "productoCosto": productoCosto,
         "productoImagen": productoImagen,
         "empresaId": empresaId,
+        "itemId": itemId,
+        "eventoId": eventoId,
+        "cantidad": cantidad,
+        "pedidoId": pedidoId,
     };
 }

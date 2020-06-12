@@ -134,6 +134,7 @@ getAccessToken()async{
          final id=newData['id'];
           prefs.token=newtoken;
           prefs.id=id;
+        
        final a =  await _registertoken(newtoken, id);
        final e= await _session.set(newtoken, 86400);
          
