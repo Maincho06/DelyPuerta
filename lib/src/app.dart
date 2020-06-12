@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:delipuerta/src/pages/Login/login.dart';
 import 'package:delipuerta/src/pages/home_page.dart';
+import 'package:delipuerta/src/bloc/registro_provider.dart';
 
 
 class MyApp extends StatefulWidget {
@@ -40,27 +41,29 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'DelyPuerta',
-      theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
-        textTheme: GoogleFonts.latoTextTheme(textTheme).copyWith(
-          body1: GoogleFonts.montserrat(textStyle: textTheme.body1),
-        )
+    return Provider(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'DelyPuerta',
+        theme: ThemeData(
+          primarySwatch: Colors.deepOrange,
+          textTheme: GoogleFonts.latoTextTheme(textTheme).copyWith(
+            body1: GoogleFonts.montserrat(textStyle: textTheme.body1),
+          )
+        ),
+        initialRoute: 'login',
+        routes: {
+          'login'     : (_) => LoginPage(),
+          'registro'  : (_) => RegistroPage(),
+          'home'      : (_) => HomePage(),
+          'pedido'    : (_) => PedidoPage(),
+          'productos' : (_) => ProductoPage(),
+          'crearproducto' : (_) => CrearProducto(),
+          'carrito' : (_) => CarritoPage(),
+          'splash': (_) => Splash(),
+          //'pedido/metodo_pago'    : (_) => MetodoPagoPage(),
+        },
       ),
-      initialRoute: 'splash',
-      routes: {
-        'login'     : (_) => LoginPage(),
-        'registro'  : (_) => RegistroPage(),
-        'home'      : (_) => HomePage(),
-        'pedido'    : (_) => PedidoPage(),
-        'productos' : (_) => ProductoPage(),
-        'crearproducto' : (_) => CrearProducto(),
-        'carrito' : (_) => CarritoPage(),
-        'splash': (_) => Splash(),
-        //'pedido/metodo_pago'    : (_) => MetodoPagoPage(),
-      },
     );
   }
 }

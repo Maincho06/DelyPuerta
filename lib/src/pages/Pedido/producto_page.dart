@@ -19,10 +19,12 @@ class _ProductoPageState extends State<ProductoPage> {
   List<int> conteo = new List(100);
   List<dynamic> carrito;
   final carritoT = new List();
+  int idEvento;
 
   @override
   Widget build(BuildContext context) {
     final EventoModel proData = ModalRoute.of(context).settings.arguments;
+    idEvento=proData.eventoId;
     return Scaffold(
       appBar: AppBar(
         title: Text('Productos'),
@@ -83,6 +85,7 @@ class _ProductoPageState extends State<ProductoPage> {
                   }
                   carritoT.add(temp);
                   carritoT.add(precioTotal);
+                  carritoT.add(idEvento);
 
                   Navigator.pushNamed(context, 'carrito', arguments: carritoT);
                 }

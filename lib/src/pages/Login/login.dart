@@ -1,5 +1,9 @@
 import 'package:delipuerta/src/Widget/bezierContainer.dart';
+import 'package:delipuerta/src/models/registrar/condominio_model.dart';
+import 'package:delipuerta/src/models/registrar/edificio_model.dart';
+import 'package:delipuerta/src/models/registrar/registro_model.dart';
 import 'package:delipuerta/src/services/login/login_services.dart';
+import 'package:delipuerta/src/services/registrar_usuario_services.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,6 +20,9 @@ Login log = new Login();
 var email= TextEditingController();
 var contra = TextEditingController();
     var _isFetching=false;
+List<CondominioModel> _condominios;
+List<EdificioModel> _edificio;
+
 
   @override
   Widget build(BuildContext context) {
@@ -248,8 +255,9 @@ var contra = TextEditingController();
             width: 10,
           ),
           InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, 'registro');
+            onTap: () async{
+              await RegistrarServices.mostrarCondominios().then((value) => _condominios=value);
+              Navigator.pushNamed(context, 'registro', arguments: _condominios);
             },
             child: Text(
               'Registrate',

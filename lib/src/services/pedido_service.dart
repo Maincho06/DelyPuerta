@@ -14,7 +14,6 @@ class PedidoServices {
   Future<int> registrarPedido(int eventoId) async {
      int id=_prefs.usuarioId;
     carritoModel.idUsuario= id;
-    // carritoModel.idUsuario= _prefs.usuarioId;
     carritoModel.fecha=DateTime.now();
     carritoModel.descripcion="por pagar";
     carritoModel.idEvento=eventoId;
