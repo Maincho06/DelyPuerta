@@ -71,7 +71,7 @@ class EventoPage extends StatelessWidget {
         child: Card(
           elevation: 5.0,
           child: ListTile(
-            leading: Icon(Icons.flag, color: Color(0xffe46b10)),
+            leading: Icon(Icons.flag, color: Color.fromRGBO(149, 72, 31,1)),
             title: Text('${rendi.eventoNombre}'),
             subtitle: Text(fecha),
             contentPadding: EdgeInsets.only(left: 20.0 ,bottom: 7.0, right: 30.0),
@@ -98,7 +98,7 @@ class EventoPage extends StatelessWidget {
         child: Card(
           elevation: 5.0,
           child: ListTile(
-            leading: Icon(Icons.flag, color: Color(0xffe46b10)),
+            leading: Icon(Icons.flag, color: Color.fromRGBO(149, 72, 31,1)),
             title: Text('San Fernando'),
             subtitle: Text('Venta de Pollos'),
             contentPadding: EdgeInsets.only(left: 20.0 ,bottom: 7.0, right: 30.0),

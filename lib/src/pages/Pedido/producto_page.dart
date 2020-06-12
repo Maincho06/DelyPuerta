@@ -1,3 +1,4 @@
+
 import 'package:delipuerta/src/models/detalle_producto_model.dart';
 import 'package:delipuerta/src/models/evento_model.dart';
 import 'package:delipuerta/src/services/productos_services.dart';
@@ -91,7 +92,7 @@ class _ProductoPageState extends State<ProductoPage> {
                 }
               },
               child: Text('Añadir al carrito  (S/ $precioTotal)'),
-              color: Color(0xfff7892b),
+              color: Color.fromRGBO(149, 72, 31,1),
             )),
       ),
     );
@@ -172,7 +173,17 @@ class _ProductoPageState extends State<ProductoPage> {
           Container(
             width: 100,
             padding: const EdgeInsets.all(8),
-            child: Image.network(rendi.productoImagen),
+            child: FadeInImage(placeholder: AssetImage('assets/no-image.png'),
+                        image: NetworkImage(rendi.productoImagen),
+                        height: 100,
+                     //  fit: BoxFit.fill,
+                        
+                   ),
+            
+            
+            
+       //     Image.network(rendi.productoImagen,fit: BoxFit.cover,),
+            
           ),
           Text(
             rendi.productoNombre,
@@ -180,10 +191,11 @@ class _ProductoPageState extends State<ProductoPage> {
             textAlign: TextAlign.start,
           ),
           Text('S/ ${rendi.productoCosto}'),
-          Text(rendi.productoDescripcion),
+          Container(child: Text(rendi.productoDescripcion),height: 50,),
           _crearBotones(rendi, mostrar, i)
         ],
       ),
     );
   }
+  
 }

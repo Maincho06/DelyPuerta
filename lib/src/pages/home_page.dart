@@ -34,8 +34,7 @@ class _HomePageState extends State<HomePage> {
     switch ( paginaActual ) {
       case 0: return EventoPage();
       case 1: return MisPedidosPage();
-      case 2: return CrearEventoPage();
-      case 3: return CrearProducto(evento: false,);
+      case 2: return PerfilPage();
       default:
         return EventoPage();
     }
@@ -56,17 +55,14 @@ class _HomePageState extends State<HomePage> {
           title: Text('Eventos')
         ),
         BottomNavigationBarItem(
+          icon: FaIcon(FontAwesomeIcons.boxOpen),
+          title: Text('Mis Pedidos')
+        ),
+        BottomNavigationBarItem(
           icon: FaIcon(FontAwesomeIcons.user),
           title: Text('Perfil')
         ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.create),
-          title: Text('Crear Evento')
-        ),
-        BottomNavigationBarItem(
-          icon: Icon(Icons.create),
-          title: Text('Producto')
-        ),
+       
       ],
     );
   }

@@ -1,13 +1,22 @@
 import 'package:delipuerta/src/models/pedido_model.dart';
 import 'package:delipuerta/src/services/pedidos.dart';
 import 'package:delipuerta/src/share_prefs/preferencias.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class MisPedidosPage extends StatelessWidget {
- 
+class MisPedidosPage extends StatefulWidget {
+  @override
+  _MisPedidosPageState createState() => _MisPedidosPageState();
+}
+
+class _MisPedidosPageState extends State<MisPedidosPage> {
+  var _isFetching=false;
+
 PerdidosServices pe = new PerdidosServices();
+
  PreferenciasUsuario _prefs = new PreferenciasUsuario();
+
   @override
   Widget build(BuildContext context) {
     print(_prefs.id);
@@ -15,11 +24,20 @@ PerdidosServices pe = new PerdidosServices();
     
       body: Stack(
         children: <Widget>[
-          _creatLista(),
+          _creatLista(),_isFetching? Positioned.fill(child: Container(
+     color: Colors.black45,
+     child: Center(
+       child: CircularProgressIndicator(
+         valueColor: AlwaysStoppedAnimation<Color>(Color.fromRGBO(149, 72, 31,1)),
+        
+          ),
+     ),
+   )):Container(),
         ],
       ),
     );
   }
+
   _creatLista(){
     return FutureBuilder(
       future: pe.mostrarPedidos(_prefs.usuarioId,1)  ,
@@ -40,7 +58,6 @@ PerdidosServices pe = new PerdidosServices();
    },
     );
   }
-  
 
     Widget _crearvista(BuildContext context,PedidosModel rendi){
 
@@ -53,13 +70,18 @@ PerdidosServices pe = new PerdidosServices();
         child: Card(
           elevation: 5.0,
           child: ListTile(
-            leading: Icon(Icons.assignment, color: Color(0xffe46b10)),
+            leading: Icon(Icons.assignment, color: Color.fromRGBO(149, 72, 31,1)),
             title: Text('${rendi.pedidoDescripcion}'),
             subtitle: Text(fecha),
             contentPadding: EdgeInsets.only(left: 20.0 ,bottom: 7.0, right: 30.0),
           )
         ),
         onTap: () async{
+             if(_isFetching) return;
+            
+                      setState(() {
+                        _isFetching=true;
+                      });
           final empresa=await pe.mostrarEmpresaPorPedido(rendi.eventoId);
           final total= await pe.retornartotal(rendi.pedidoId);
           if(empresa!='error'&& total!='error'){
@@ -71,6 +93,9 @@ PerdidosServices pe = new PerdidosServices();
            //  print(empresa[0]);
            // print(empresa[0]["empresaRuc"]);
             print(total);
+              setState(() {
+                    _isFetching=false;
+            });
              Navigator.pushNamed(context, 'items',arguments: rendi);
           }
          
@@ -83,5 +108,4 @@ PerdidosServices pe = new PerdidosServices();
     );
 
   }
-
 }

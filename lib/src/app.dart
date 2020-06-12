@@ -47,12 +47,13 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         title: 'DelyPuerta',
         theme: ThemeData(
-          primarySwatch: Colors.deepOrange,
+          primaryColor: Color.fromRGBO(149, 72, 31,1),
+          primarySwatch: Colors.brown,
           textTheme: GoogleFonts.latoTextTheme(textTheme).copyWith(
             body1: GoogleFonts.montserrat(textStyle: textTheme.body1),
           )
         ),
-        initialRoute: 'splash',
+        initialRoute: 'login',
         routes: {
           'login'     : (_) => LoginPage(),
           'registro'  : (_) => RegistroPage(),
@@ -62,6 +63,7 @@ class _MyAppState extends State<MyApp> {
           'crearproducto' : (_) => CrearProducto(),
           'carrito' : (_) => CarritoPage(),
           'splash': (_) => Splash(),
+          'items': (_)=>ItemsPage(),
           //'pedido/metodo_pago'    : (_) => MetodoPagoPage(),
         },
       ),
