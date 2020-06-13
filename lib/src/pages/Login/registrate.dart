@@ -4,6 +4,7 @@ import 'package:delipuerta/src/models/registrar/condominio_model.dart';
 import 'package:delipuerta/src/models/registrar/edificio_model.dart';
 import 'package:delipuerta/src/models/registrar/registro_model.dart';
 import 'package:delipuerta/src/models/usuario_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:delipuerta/src/services/registrar_usuario_services.dart';
@@ -20,15 +21,16 @@ class _RegistroPageState extends State<RegistroPage> {
   Usuario usuario = new Usuario();
   final _formKey = GlobalKey<FormState>();
 
-  String condo = "seleccionar";
+  String condo = "Seleccionar";
   List<CondominioModel> listCondominio;
   int idCondo;
 
-  String edifi = "seleccionar";
+  String edifi = "Seleccionar";
   List<EdificioModel> listEdificio;
-  int idEdifi;
+  int idEdifi = -1;
 
-  bool pasar=false;
+  bool cargar = false;
+  bool pasar = false;
   bool dibujar = true;
   String respuesta;
   RegistrarUsuarioModel registrarUsuario;
@@ -73,7 +75,18 @@ class _RegistroPageState extends State<RegistroPage> {
               Positioned(
                   top: -MediaQuery.of(context).size.height * .22,
                   right: -MediaQuery.of(context).size.width * .4,
-                  child: BezierContainer())
+                  child: BezierContainer()),
+              cargar
+                  ? Positioned.fill(
+                      child: Container(
+                      color: Colors.black45,
+                      child: Center(
+                        child: CupertinoActivityIndicator(
+                          radius: 15,
+                        ),
+                      ),
+                    ))
+                  : Container(),
             ],
           ),
         ),
@@ -212,10 +225,13 @@ class _RegistroPageState extends State<RegistroPage> {
             child: Text("${value.codominioNombre}"),
           );
         }).toList(),
-        onChanged: (String newValueSelected){
+        onChanged: (String newValueSelected) {
           dibujar = false;
-          int temp = listCondominio.indexWhere((user) => user.codominioNombre == newValueSelected);
+          int temp = listCondominio
+              .indexWhere((user) => user.codominioNombre == newValueSelected);
           idCondo = listCondominio[temp].condominioId;
+          idEdifi = -1;
+          edifi = "Seleccionar";
           setState(() {
             print("$idCondo");
             condo = newValueSelected;
@@ -230,7 +246,8 @@ class _RegistroPageState extends State<RegistroPage> {
     ]));
 
     final formEdificio = FutureBuilder(
-        future: RegistrarServices.mostrarEdificio(idCondo).then((value) => listEdificio = value),
+        future: RegistrarServices.mostrarEdificio(idCondo)
+            .then((value) => listEdificio = value),
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           return Container(
             child: Row(children: <Widget>[
@@ -366,10 +383,14 @@ class _RegistroPageState extends State<RegistroPage> {
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
               ),
-              onTap: snapshot.hasData
+              onTap: snapshot.hasData == true && idEdifi >= 0
                   ? () async {
+                      setState(() {
+                        cargar = true;
+                      });
                       if (_formKey.currentState.validate()) {
-                        RegistrarUsuarioModel registrarUsuario= new RegistrarUsuarioModel();
+                        RegistrarUsuarioModel registrarUsuario =
+                            new RegistrarUsuarioModel();
                         registrarUsuario.dni = blocF.dni;
                         registrarUsuario.nombre = blocF.nombre.trim();
                         registrarUsuario.apellido = blocF.apellido.trim();
@@ -378,12 +399,20 @@ class _RegistroPageState extends State<RegistroPage> {
                         registrarUsuario.telefono = blocF.telefono;
                         registrarUsuario.correo = blocF.correo;
                         registrarUsuario.contrasena = blocF.contrasena.trim();
-                        respuesta = await RegistrarServices.registrarUsuario(registrarUsuario);
+                        respuesta = await RegistrarServices.registrarUsuario(
+                            registrarUsuario);
                         if (respuesta == "Registrado") {
-                          pasar=true;
+                          cargar = false;
+                          setState(() {
+                            cargar = false;
+                          });
+                          pasar = true;
                           _showMyDialog(respuesta, pasar);
-                          
                         } else {
+                          cargar = false;
+                          setState(() {
+                            cargar = false;
+                          });
                           _showMyDialog(respuesta, pasar);
                         }
                       }
@@ -392,7 +421,7 @@ class _RegistroPageState extends State<RegistroPage> {
         });
   }
 
-  Future<void> _showMyDialog(String mensaje,bool pasar) async {
+  Future<void> _showMyDialog(String mensaje, bool pasar) async {
     return showDialog<void>(
       context: context,
       barrierDismissible: false, // user must tap button!
@@ -409,13 +438,14 @@ class _RegistroPageState extends State<RegistroPage> {
           actions: <Widget>[
             FlatButton(
               child: Text('Aceptar'),
-              onPressed: pasar? () {
-                Navigator.pushNamed(context, 'login');
-              }:(){
-                Navigator.of(context).pop();
-              },
+              onPressed: pasar
+                  ? () {
+                      Navigator.pushNamed(context, 'login');
+                    }
+                  : () {
+                      Navigator.of(context).pop();
+                    },
             ),
-            
           ],
         );
       },
