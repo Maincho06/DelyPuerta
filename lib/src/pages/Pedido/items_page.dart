@@ -63,7 +63,7 @@ class _ItemsPageState extends State<ItemsPage>  {
                // color: Colors.red,
                
 
-                child: mostrarvento('Total', 'S/ ${proData.montoTotal}'),
+                child: mostrarvento('Total', 'S/ ${(proData.montoTotal).toStringAsFixed(2)}'),
                 ),
         
               //_crearvista(context, proData),
