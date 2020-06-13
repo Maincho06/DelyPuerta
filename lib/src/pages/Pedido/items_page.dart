@@ -145,17 +145,17 @@ class _ItemsPageState extends State<ItemsPage>  {
    query=MediaQuery.of(context);
     return    Row(
       
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
                 
                 
-                  Container(child: Text('${rendi.productoNombre}',textAlign: TextAlign.start,),width: query.size.width/3,),
+                  Container(child: Text('${rendi.productoNombre}',textAlign: TextAlign.start,),width: query.size.width/3.5,),
                  
-                  Container(child: Text('${rendi.cantidad}',textAlign: TextAlign.start),width: query.size.width/7,),
+                  Container(child: Text('${rendi.cantidad}',textAlign: TextAlign.start),width: query.size.width/11,),
                  
                   Container(child: Text('S/ ${rendi.productoCosto}',textAlign: TextAlign.start,),width: query.size.width/5,),
 
-                 Container(child: Text('S/ $precioTotal',textAlign: TextAlign.start,),width: query.size.width/7,)
+                 Container(child: Text('S/ $precioTotal',textAlign: TextAlign.start,),width: query.size.width/5.5,)
                   
               ],
             );
@@ -177,7 +177,7 @@ Widget _crearvist2(BuildContext context){
              
               Container(child: Text('Cantidad',textAlign: TextAlign.start),width: query.size.width/5,),
              
-              Container(child: Text('Costo',textAlign: TextAlign.start,),width: query.size.width/5,),
+              Container(child: Text('Costo',textAlign: TextAlign.start,),width: query.size.width/7,),
 
              Container(child: Text('CostoTotal',textAlign: TextAlign.start,),width: query.size.width/5,)
               

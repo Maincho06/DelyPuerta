@@ -32,6 +32,7 @@ List<EdificioModel> _edificio;
           height: MediaQuery.of(context).size.height,
           child: Stack(
             children: <Widget>[
+              
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Column(
@@ -42,6 +43,7 @@ List<EdificioModel> _edificio;
                       flex: 3,
                       child: SizedBox(),
                     ),
+                   
                     _title(),
                     SizedBox(
                       height: 50,
@@ -88,24 +90,26 @@ List<EdificioModel> _edificio;
   }
 
   Widget _title() {
-    return RichText(
+   
+    
+   return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
-      text: 'Del',
+      text: 'QUY',
       style: GoogleFonts.portLligatSans(
         textStyle: Theme.of(context).textTheme.display1,
         fontSize: 40,
         fontWeight: FontWeight.w700,
-        color: Color(0xffe46b10),
+        color: Color.fromRGBO(149, 72, 31,1),
       ),
       children: [
         TextSpan(
-          text: 'y',
-          style: TextStyle(color: Colors.black, fontSize: 40),
+          text: 'KA',
+          style: TextStyle(color: Color.fromRGBO(149, 72, 31,1), fontSize: 40),
         ),
         TextSpan(
-          text: 'Puerta',
-          style: TextStyle(color: Color(0xffe46b10), fontSize: 40),
+          text: 'PUNA',
+          style: TextStyle(color: Color.fromRGBO(149, 72, 31,1), fontSize: 40),
         ),
       ]),
     );
@@ -262,7 +266,7 @@ List<EdificioModel> _edificio;
             child: Text(
               'Registrate',
               style: TextStyle(
-                  color: Color(0xfff79c4f),
+                  color: Colors.brown[300],
                   fontSize: 13,
                   fontWeight: FontWeight.w600),
             ),
@@ -305,7 +309,7 @@ List<EdificioModel> _edificio;
           gradient: LinearGradient(
               begin: Alignment.centerLeft,
               end: Alignment.centerRight,
-              colors: [Color(0xfffbb448), Color(0xfff7892b)]
+              colors: [Color.fromRGBO(149, 72, 31,1), Color(0xffe46b10) ]
           )
         ),
         child: Text(
@@ -329,7 +333,7 @@ List<EdificioModel> _edificio;
               setState(() {
                     _isFetching=false;
             });
-              _mensaje(context,resp['mensaje']);
+             // _mensaje(context,resp['mensaje']);
               //Navigator.pushNamedAndRemoveUntil(context, 'videocall', (_)=>false);
               Navigator.pushNamed(context, 'splash');
             

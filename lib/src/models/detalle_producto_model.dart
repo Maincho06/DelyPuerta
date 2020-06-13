@@ -42,4 +42,12 @@ class ProductoModel {
         "productoImagen": productoImagen,
         "empresaId": empresaId,
     };
+
+     getPostImg(){
+       
+      if( productoImagen==null){
+        return 'https://image.shutterstock.com/image-vector/no-image-available-icon-flat-600w-1240855801.jpg';
+      }
+      return productoImagen;
+    }
 }

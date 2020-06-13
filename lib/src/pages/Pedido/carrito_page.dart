@@ -81,7 +81,7 @@ class _CarritoPageState extends State<CarritoPage> {
                   'Total a pagar (S/ $cant)',
                   style: TextStyle(color: Colors.white),
                 ),
-                color: Color(0xfff7892b),
+                color: Color.fromRGBO(149, 72, 31,1),
             )
           ),
         ));
