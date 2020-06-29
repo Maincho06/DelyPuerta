@@ -19,11 +19,11 @@ class CondominioModel {
 
     factory CondominioModel.fromJson(Map<String, dynamic> json) => CondominioModel(
         condominioId: json["condominioId"],
-        codominioNombre: json["codominioNombre"],
+        codominioNombre: json["condominioNombre"],
     );
 
     Map<String, dynamic> toJson() => {
         "condominioId": condominioId,
-        "codominioNombre": codominioNombre,
+        "condominioNombre": codominioNombre,
     };
 }

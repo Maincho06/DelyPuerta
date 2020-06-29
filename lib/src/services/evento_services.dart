@@ -34,7 +34,7 @@ class EventoServices {
   mostrarEventos() async {
     final eventos = new List();
 
-    final urlTemp = '$URL/Eventos/mostrarEventos';
+    final urlTemp = '$URL/Eventos/mostrarEventosPorUsuario/${_prefs.usuarioId}';
     final response = await http.get(urlTemp, headers: {
       "Content-Type": "application/json",
       "authorization": _prefs.token
