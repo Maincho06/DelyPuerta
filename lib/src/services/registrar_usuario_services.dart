@@ -41,8 +41,8 @@ class RegistrarServices {
     return respuesta;
   }
   static obtenerRespuesta(decodedResp) {
-    List temp = decodedResp;
-    Map map = temp[0];
-    return map['resultado'];
+  //  List temp = decodedResp;
+    final map = decodedResp['resultado'];
+    return map;
   }
 }

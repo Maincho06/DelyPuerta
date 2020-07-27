@@ -45,7 +45,7 @@ class _MyAppState extends State<MyApp> {
     return Provider(
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'splash',
+        title: 'login',
         theme: ThemeData(
           primaryColor: Color.fromRGBO(149, 72, 31,1),
           primarySwatch: Colors.brown,
@@ -53,7 +53,7 @@ class _MyAppState extends State<MyApp> {
             body1: GoogleFonts.montserrat(textStyle: textTheme.body1),
           )
         ),
-        initialRoute: 'splash',
+        initialRoute: 'login',
         routes: {
           'login'     : (_) => LoginPage(),
           'registro'  : (_) => RegistroPage(),
