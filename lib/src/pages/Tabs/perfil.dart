@@ -65,64 +65,66 @@ class PerfilPage extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(
-            height: 20,
-          ),
           Container(
+            height: MediaQuery.of(context).size.height * 0.5,
             padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
+            child: ListView(
               children: [
-                ListTile(
-                  leading: Icon(
-                    Icons.supervised_user_circle,
-                    color: Color.fromRGBO(149, 72, 31, 1),
-                  ),
-                  title: Text('Nombre apellido apellido'),
-                ),
-                Divider(),
-                ListTile(
-                  leading: Icon(
-                    Icons.email,
-                    color: Color.fromRGBO(149, 72, 31, 1),
-                  ),
-                  title: Text('correo@correo.com'),
-                ),
-                Divider(),
-                ListTile(
-                  leading: Icon(
-                    Icons.phone,
-                    color: Color.fromRGBO(149, 72, 31, 1),
-                  ),
-                  title: Text('999-999-999'),
-                ),
-                Divider(),
-                ListTile(
-                  leading: Icon(
-                    Icons.gps_fixed,
-                    color: Color.fromRGBO(149, 72, 31, 1),
-                  ),
-                  title: Text('Lima'),
-                ),
-                Divider(),
-                GestureDetector(
-                  onTap: () {
-                    prefs.usuarioId = 0;
-                    prefs.tipoUsuario = 0;
-                    prefs.token = '';
-                    Navigator.pushReplacementNamed(context, 'login');
-                  },
-                  child: ListTile(
-                    leading: Icon(
-                      Icons.exit_to_app,
-                      color: Color.fromRGBO(149, 72, 31, 1),
+                Column(
+                  children: [
+                    ListTile(
+                      leading: Icon(
+                        Icons.supervised_user_circle,
+                        color: Color.fromRGBO(149, 72, 31, 1),
+                      ),
+                      title: Text('Nombre apellido apellido'),
                     ),
-                    title: Text('Cerrar sesión'),
-                  ),
+                    Divider(),
+                    ListTile(
+                      leading: Icon(
+                        Icons.email,
+                        color: Color.fromRGBO(149, 72, 31, 1),
+                      ),
+                      title: Text('correo@correo.com'),
+                    ),
+                    Divider(),
+                    ListTile(
+                      leading: Icon(
+                        Icons.phone,
+                        color: Color.fromRGBO(149, 72, 31, 1),
+                      ),
+                      title: Text('999-999-999'),
+                    ),
+                    Divider(),
+                    ListTile(
+                      leading: Icon(
+                        Icons.gps_fixed,
+                        color: Color.fromRGBO(149, 72, 31, 1),
+                      ),
+                      title: Text('Lima'),
+                    ),
+                    Divider(),
+                    GestureDetector(
+                      onTap: () {
+                        prefs.usuarioId = 0;
+                        prefs.tipoUsuario = 0;
+                        prefs.token = '';
+                        Navigator.pushReplacementNamed(context, 'login');
+                      },
+                      child: ListTile(
+                        leading: Icon(
+                          Icons.exit_to_app,
+                          color: Color.fromRGBO(149, 72, 31, 1),
+                        ),
+                        title: Text('Cerrar sesión'),
+                      ),
+                    ),
+                    Divider(),
+                  ],
                 ),
-                Divider(),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
