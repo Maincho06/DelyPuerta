@@ -53,8 +53,9 @@ class _MyAppState extends State<MyApp> {
             body1: GoogleFonts.montserrat(textStyle: textTheme.body1),
           )
         ),
-        initialRoute: 'login',
+        initialRoute: 'splash',
         routes: {
+          
           'login'     : (_) => LoginPage(),
           'registro'  : (_) => RegistroPage(),
           'home'      : (_) => HomePage(),
@@ -64,6 +65,7 @@ class _MyAppState extends State<MyApp> {
           'carrito' : (_) => CarritoPage(),
           'splash': (_) => Splash(),
           'items': (_)=>ItemsPage(),
+          
           //'pedido/metodo_pago'    : (_) => MetodoPagoPage(),
         },
       ),

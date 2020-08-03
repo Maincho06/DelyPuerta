@@ -1,5 +1,7 @@
 import 'package:delipuerta/src/models/items_model.dart';
 import 'package:delipuerta/src/models/pedido_model.dart';
+import 'package:delipuerta/src/pages/Pedido/enviarpago_page.dart';
+import 'package:delipuerta/src/pages/Pedido/metodo_pago.dart';
 import 'package:delipuerta/src/services/pedidos.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -12,6 +14,9 @@ class ItemsPage extends StatefulWidget {
 
 class _ItemsPageState extends State<ItemsPage>  {
   PerdidosServices pe = new PerdidosServices();
+  bool _pagar=false;
+  
+  @override
   
  
 
@@ -26,12 +31,24 @@ class _ItemsPageState extends State<ItemsPage>  {
         final PedidosModel proData = ModalRoute.of(context).settings.arguments;
          String fecha= DateFormat('yyyy-MM-dd').format(proData.pedidoFecha);
          String hora = DateFormat('hh:mm').format(proData.pedidoFecha);
-
+void initState() { 
+  
+   if(proData.estadoPedidoId==3){
+      _pagar=true;
+    }
+    super.initState();
+   
+  }
     return Scaffold(
       appBar: AppBar(
+
         title: Text('Pedido ${proData.usuarioNombre}'),
-        
+        actions: [
+          
+          _mostrarbotones(proData.estadoPedidoId,proData.pedidoId)
+        ],
       ),
+     
       body: Stack(
 
         children: <Widget>[
@@ -87,7 +104,29 @@ class _ItemsPageState extends State<ItemsPage>  {
       ),
     );
   }
-
+_mostrarbotones(int rendi,int pedido){
+  print('que es esto $rendi');
+  if(rendi==3){
+  return IconButton(
+         
+         enableFeedback: false,
+         icon: Icon(Icons.payment), onPressed: (){
+                Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            settings: RouteSettings(
+                                                name: "/MetodosPago"),
+                                            builder: (context) =>
+                                                MetodosPago(
+                                                  pedidoId: pedido,
+                                                  
+                                                )));
+                                  });
+      
+  }else{
+    return Container();
+  }
+  
+}
   mostrarvento(final comun,final propio){
     return   Row(
                    mainAxisAlignment: MainAxisAlignment.center,

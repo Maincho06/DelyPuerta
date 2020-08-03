@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:async' as prefix0;
+
 import 'package:rxdart/rxdart.dart';
 import 'package:delipuerta/src/bloc/validators.dart';
 
@@ -16,15 +18,15 @@ class RegistroBloc with Validartors{
   final _contrasenaController    = BehaviorSubject<String>();
 
   // Recuperar los datos del Stream
-  Stream<String> get dniStream => _dniController.stream.transform(validarDni);
-  Stream<String> get nombreStream => _nombreController.stream;
-  Stream<String> get apellidoStream => _apellidoController.stream;
-  Stream<String> get departamentoStream => _departamentoController.stream;
-  Stream<String> get telefonoStream => _telefonoController.transform(validartelefono);
-  Stream<String> get correoStream => _correoController.stream.transform(validarCorreo);
-  Stream<String> get contrasenaStream => _contrasenaController.stream.transform(validarContrasena);
+  prefix0.Stream<String> get dniStream => _dniController.stream.transform(validarDni);
+  prefix0.Stream<String> get nombreStream => _nombreController.stream;
+  prefix0.Stream<String> get apellidoStream => _apellidoController.stream;
+  prefix0.Stream<String> get departamentoStream => _departamentoController.stream;
+  prefix0.Stream<String> get telefonoStream => _telefonoController.transform(validartelefono);
+  prefix0.Stream<String> get correoStream => _correoController.stream.transform(validarCorreo);
+  prefix0.Stream<String> get contrasenaStream => _contrasenaController.stream.transform(validarContrasena);
 
-  Stream<bool> get formValidStream =>
+  prefix0.Stream<bool> get formValidStream =>
     CombineLatestStream.combine7(dniStream, nombreStream, apellidoStream, departamentoStream,telefonoStream, correoStream, contrasenaStream, (a, b, c, d, e, f,g) => true);
 
   // insertar valores al Stream
