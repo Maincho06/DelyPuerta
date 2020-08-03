@@ -53,8 +53,11 @@ class _MetodosPagoState extends State<MetodosPago> {
               iconSize: 120,
               color: Colors.lightBlue,
               icon: Icon(Icons.image), onPressed: () async{
+                setState(() {
+                            _isloading=true;
+                });
+
           var image = await ImagePicker.pickImage(source: ImageSource.camera);
-          _isloading=true;
             setState(() {
         _picture=image;
 

@@ -23,6 +23,8 @@ get() async{
     return jsonDecode(result);
   }return null;
 } 
-
+clear() async {
+    await storage.deleteAll();
+  }
 
 }

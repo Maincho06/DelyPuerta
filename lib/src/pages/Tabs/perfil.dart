@@ -1,3 +1,4 @@
+import 'package:delipuerta/src/util/session.dart';
 import 'package:flutter/material.dart';
 
 import '../../share_prefs/preferencias.dart';
@@ -109,6 +110,8 @@ class PerfilPage extends StatelessWidget {
                     prefs.usuarioId = 0;
                     prefs.tipoUsuario = 0;
                     prefs.token = '';
+                    Session se = new Session();
+                    se.clear();
                     Navigator.pushReplacementNamed(context, 'login');
                   },
                   child: ListTile(
