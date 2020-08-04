@@ -1,5 +1,7 @@
 import 'package:delipuerta/src/models/items_model.dart';
 import 'package:delipuerta/src/models/pedido_model.dart';
+import 'package:delipuerta/src/pages/Pedido/enviarpago_page.dart';
+import 'package:delipuerta/src/pages/Pedido/metodo_pago.dart';
 import 'package:delipuerta/src/services/pedidos.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -12,8 +14,19 @@ class ItemsPage extends StatefulWidget {
 
 class _ItemsPageState extends State<ItemsPage> {
   PerdidosServices pe = new PerdidosServices();
+  bool _pagar = false;
 
+  @override
   double total = 0;
+
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +35,17 @@ class _ItemsPageState extends State<ItemsPage> {
     final PedidosModel proData = ModalRoute.of(context).settings.arguments;
     String fecha = DateFormat('yyyy-MM-dd').format(proData.pedidoFecha);
     String hora = DateFormat('hh:mm').format(proData.pedidoFecha);
+    void initState() {
+      if (proData.estadoPedidoId == 3) {
+        _pagar = true;
+      }
+      super.initState();
+    }
 
     return Scaffold(
       appBar: AppBar(
         title: Text('Pedido ${proData.usuarioNombre}'),
+        actions: [_mostrarbotones(proData.estadoPedidoId, proData.pedidoId)],
       ),
       body: Stack(
         children: <Widget>[
@@ -79,6 +99,24 @@ class _ItemsPageState extends State<ItemsPage> {
     );
   }
 
+  _mostrarbotones(int rendi, int pedido) {
+    print('que es esto $rendi');
+    if (rendi == 3) {
+      return IconButton(
+          enableFeedback: false,
+          icon: Icon(Icons.payment),
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                settings: RouteSettings(name: "/MetodosPago"),
+                builder: (context) => MetodosPago(
+                      pedidoId: pedido,
+                    )));
+          });
+    } else {
+      return Container();
+    }
+  }
+
   mostrarvento(final comun, final propio) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -119,8 +157,9 @@ class _ItemsPageState extends State<ItemsPage> {
     query = MediaQuery.of(context);
     return GestureDetector(
       onTap: () {
-        print('object');
-        mainshowDialogAddItems(rendi.cantidad);
+        print(rendi.cantidad);
+        // print(rendi.cantidad);
+        mainshowDialogAddItems(rendi.itemId, rendi.cantidad);
       },
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -155,8 +194,9 @@ class _ItemsPageState extends State<ItemsPage> {
     );
   }
 
-  mainshowDialogAddItems(int cantidad) {
-    int nro = 0;
+  mainshowDialogAddItems(int id, int cantidad) {
+    myController.text = "$cantidad";
+    int nro = cantidad;
     showDialog(
         context: context,
         barrierDismissible: false,
@@ -193,6 +233,7 @@ class _ItemsPageState extends State<ItemsPage> {
                           onPressed: () {
                             setState(() {
                               nro++;
+                              myController.text = "$nro";
                               print(nro);
                             });
                           },
@@ -206,7 +247,19 @@ class _ItemsPageState extends State<ItemsPage> {
                           ),
                         ),
                       ),
-                      Text('${nro.toString()}'),
+                      Container(
+                        width: 80,
+                        child: TextField(
+                          enabled: false,
+                          controller: myController,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            // hintText:false
+                          ),
+                        ),
+                      ),
+                      // Text('${nro.toString()}'),
                       Container(
                         width: 50,
                         height: 50,
@@ -216,7 +269,12 @@ class _ItemsPageState extends State<ItemsPage> {
                           ),
                           onPressed: () {
                             setState(() {
-                              nro--;
+                              if (nro == 1) {
+                                nro = 1;
+                              } else {
+                                nro--;
+                              }
+                              myController.text = "$nro";
                               print(nro);
                             });
                           },
@@ -237,11 +295,20 @@ class _ItemsPageState extends State<ItemsPage> {
             ),
             actions: <Widget>[
               FlatButton(
-                  onPressed: (() => Navigator.of(context).pop()),
-                  child: Align(widthFactor: 2, child: Text('Cancelar'))),
+                  onPressed: (() async {
+                    Navigator.of(context).pop();
+                    // CircularProgressIndicator();
+                    await pe.actualizarItemsPedido(id, nro);
+                    // print('------------');
+                    // print(info);
+                    // if (info != null) {
+                    //   Navigator.of(context).pop();
+                    // }
+                  }),
+                  child: Align(widthFactor: 2, child: Text('Aceptar'))),
               FlatButton(
                   onPressed: (() => Navigator.of(context).pop()),
-                  child: Align(widthFactor: 2, child: Text('Aceptar'))),
+                  child: Align(widthFactor: 2, child: Text('Cancelar'))),
             ],
           );
         });

@@ -81,8 +81,7 @@ class Login{
    }
 }
 
-
-Future<dynamic> _refreshtoken(String token) async{
+_refreshtoken(String token) async{
 
   try{
   final url = "$urlp/refrescartoken";
@@ -106,7 +105,7 @@ Future<dynamic> _refreshtoken(String token) async{
 
     }on PlatformException catch (e) {
     print('ERROR+${e.code}:${e.message}');
-    return;
+    //return;
   }
 }
 getAccessToken()async{
@@ -147,6 +146,7 @@ getAccessToken()async{
     }
   }on PlatformException catch (e) {
     print('ERROR+${e.code}:${e.message}');
+  
   }
 }
 

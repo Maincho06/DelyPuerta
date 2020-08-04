@@ -1,3 +1,4 @@
+import 'package:delipuerta/src/util/session.dart';
 import 'package:flutter/material.dart';
 
 import '../../share_prefs/preferencias.dart';
@@ -70,57 +71,47 @@ class PerfilPage extends StatelessWidget {
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
               children: [
-                Column(
-                  children: [
-                    ListTile(
-                      leading: Icon(
-                        Icons.supervised_user_circle,
-                        color: Color.fromRGBO(149, 72, 31, 1),
-                      ),
-                      title: Text('Nombre apellido apellido'),
-                    ),
-                    Divider(),
-                    ListTile(
-                      leading: Icon(
-                        Icons.email,
-                        color: Color.fromRGBO(149, 72, 31, 1),
-                      ),
-                      title: Text('correo@correo.com'),
-                    ),
-                    Divider(),
-                    ListTile(
-                      leading: Icon(
-                        Icons.phone,
-                        color: Color.fromRGBO(149, 72, 31, 1),
-                      ),
-                      title: Text('999-999-999'),
-                    ),
-                    Divider(),
-                    ListTile(
-                      leading: Icon(
-                        Icons.gps_fixed,
-                        color: Color.fromRGBO(149, 72, 31, 1),
-                      ),
-                      title: Text('Lima'),
-                    ),
-                    Divider(),
-                    GestureDetector(
-                      onTap: () {
-                        prefs.usuarioId = 0;
-                        prefs.tipoUsuario = 0;
-                        prefs.token = '';
-                        Navigator.pushReplacementNamed(context, 'login');
-                      },
-                      child: ListTile(
-                        leading: Icon(
-                          Icons.exit_to_app,
-                          color: Color.fromRGBO(149, 72, 31, 1),
-                        ),
-                        title: Text('Cerrar sesión'),
-                      ),
-                    ),
-                    Divider(),
-                  ],
+                ListTile(
+                  leading: Icon(
+                    Icons.supervised_user_circle,
+                    color: Color.fromRGBO(149, 72, 31, 1),
+                  ),
+                  title: Text('Nombre apellido apellido'),
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.email,
+                    color: Color.fromRGBO(149, 72, 31, 1),
+                  ),
+                  title: Text('correo@correo.com'),
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.phone,
+                    color: Color.fromRGBO(149, 72, 31, 1),
+                  ),
+                  title: Text('999-999-999'),
+                ),
+                Divider(),
+                ListTile(
+                  leading: Icon(
+                    Icons.gps_fixed,
+                    color: Color.fromRGBO(149, 72, 31, 1),
+                  ),
+                  title: Text('Lima'),
+                ),
+                Divider(),
+                GestureDetector(
+                  onTap: () {
+                    prefs.usuarioId = 0;
+                    prefs.tipoUsuario = 0;
+                    prefs.token = '';
+                    Session se = new Session();
+                    se.clear();
+                    Navigator.pushReplacementNamed(context, 'login');
+                  },
                 ),
               ],
             ),
