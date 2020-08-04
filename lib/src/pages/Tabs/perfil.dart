@@ -27,7 +27,7 @@ class PerfilPage extends StatelessWidget {
                     height: MediaQuery.of(context).size.height * 0.2,
                   ),
                   Container(
-                    height: 100,
+                    height: 80,
                   )
                 ],
               ),
@@ -40,15 +40,15 @@ class PerfilPage extends StatelessWidget {
                       width: MediaQuery.of(context).size.width,
                       child: Text(
                         'Perfil',
-                        style: TextStyle(fontSize: 20, color: Colors.white),
+                        style: TextStyle(fontSize: 18, color: Colors.white),
                         textAlign: TextAlign.center,
                       )),
                   SizedBox(
-                    height: 20,
+                    height: 10,
                   ),
                   Image(
                     image: AssetImage('assets/user_image.png'),
-                    height: 150,
+                    height: 100,
                   ),
                   SizedBox(
                     height: 10,
