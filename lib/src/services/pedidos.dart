@@ -13,6 +13,18 @@ class PerdidosServices {
   static const url = 'https://api-pollo.herokuapp.com';
   PreferenciasUsuario _prefs = new PreferenciasUsuario();
 
+  List<dynamic> _pedidos = new List();
+
+  final _pedidosStreamController = StreamController<List<dynamic>>.broadcast();
+
+  Function(List<dynamic>) get pedidosSink => _pedidosStreamController.sink.add;
+
+  Stream<List<dynamic>> get pedidosStream => _pedidosStreamController.stream;
+
+  void disposeStreams() {
+    _pedidosStreamController?.close();
+  }
+
   subirfoto(int idpedido, String foto) async {
     final urlTemp = '$url/Eventos/enviarFotoFactura';
     final body = {"pedidoId": idpedido, "url": foto};
@@ -148,10 +160,13 @@ class PerdidosServices {
     if (response.statusCode == 200 && decodeResp != null) {
       decodeResp.forEach((id) {
         final prodTemp = ItemsModel.fromJson(id);
-        //  print('${id['cantidad']}');
         items.add(prodTemp);
       });
-      // print(items);
+
+      _pedidos.clear();
+      _pedidos.addAll(items);
+      pedidosSink(_pedidos);
+
       return items;
     }
   }
@@ -173,11 +188,15 @@ class PerdidosServices {
         final prodTemp = ItemsModel.fromJson(id);
         items.add(prodTemp);
       });
+
+      _pedidos.clear();
+      _pedidos.addAll(items);
+      pedidosSink(_pedidos);
       return items;
     }
   }
 
-  Future actualizarItemsPedido(int id, int cantidad) async {
+  Future<List<ItemsModel>> actualizarItemsPedido(int id, int cantidad) async {
     final items = new List();
     print(id);
     final cuerpo = {
@@ -194,12 +213,23 @@ class PerdidosServices {
 
     final decodeResp = jsonDecode(response.body);
     // print(decodeResp);
+    print(2222);
     if (decodeResp == null) return [];
+    print(3333);
     if (response.statusCode == 200 && decodeResp != null) {
+      print(4444);
       decodeResp.forEach((id) {
         final prodTemp = ItemsModel.fromJson(id);
         items.add(prodTemp);
       });
+
+      print('---------');
+      print(items);
+      print('------------');
+
+      _pedidos.clear();
+      _pedidos.addAll(items);
+      pedidosSink(_pedidos);
       return items;
     }
   }

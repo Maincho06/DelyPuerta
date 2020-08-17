@@ -45,8 +45,8 @@ class _MetodosPagoState extends State<MetodosPago> {
                 Container(
                   alignment: Alignment.bottomCenter,
                   child: Container(
-                    width: 200,
-                    height: 200,
+                    width: 150,
+                    height: 150,
                     child: GestureDetector(
                       child: Image.asset('assets/pedidos/yape.png'),
                       onTap: () async {
@@ -71,32 +71,72 @@ class _MetodosPagoState extends State<MetodosPago> {
                       },
                     ),
                   ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: 150,
+                    height: 150,
+                    child: GestureDetector(
+                      child: Image.asset('assets/pedidos/plin.png'),
+                      onTap: () async {
+                        setState(() {
+                          _isloading = true;
+                        });
 
-                  // child: IconButton(
-                  //     iconSize: 120,
-                  //     color: Colors.lightBlue,
-                  //     icon: Icon(Icons.image),
-                  //     onPressed: () async {
-                  //       setState(() {
-                  //         _isloading = true;
-                  //       });
+                        var image = await ImagePicker.pickImage(
+                            source: ImageSource.camera);
+                        setState(() {
+                          _picture = image;
+                        });
 
-                  //       var image = await ImagePicker.pickImage(
-                  //           source: ImageSource.camera);
-                  //       setState(() {
-                  //         _picture = image;
-                  //       });
+                        _url = await _pe.agregarimagen(_pedidoId, _picture);
+                        if (_url != null) {
+                          _mostraimagen(
+                              context, 'Quieres enviar esta imagen?', _url);
+                          setState(() {
+                            _isloading = false;
+                          });
+                        }
+                      },
+                    ),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    width: 150,
+                    height: 150,
+                    child: GestureDetector(
+                      child: Image.asset(
+                        'assets/pedidos/transfer1.jpg',
+                      ),
+                      onTap: () async {
+                        setState(() {
+                          _isloading = true;
+                        });
 
-                  //       _url = await _pe.agregarimagen(_pedidoId, _picture);
-                  //       if (_url != null) {
-                  //         _mostraimagen(
-                  //             context, 'Quieres enviar esta imagen?', _url);
-                  //         setState(() {
-                  //           _isloading = false;
-                  //         });
-                  //       }
-                  //     }),
-                )
+                        var image = await ImagePicker.pickImage(
+                            source: ImageSource.camera);
+                        setState(() {
+                          _picture = image;
+                        });
+
+                        _url = await _pe.agregarimagen(_pedidoId, _picture);
+                        if (_url != null) {
+                          _mostraimagen(
+                              context, 'Quieres enviar esta imagen?', _url);
+                          setState(() {
+                            _isloading = false;
+                          });
+                        }
+                      },
+                    ),
+                  ),
+                ),
               ],
             ));
   }

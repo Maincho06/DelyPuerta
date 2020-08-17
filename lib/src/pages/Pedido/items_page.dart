@@ -15,11 +15,30 @@ class ItemsPage extends StatefulWidget {
 class _ItemsPageState extends State<ItemsPage> {
   PerdidosServices pe = new PerdidosServices();
   bool _pagar = false;
+  PedidosModel proData = new PedidosModel();
+  // List<dynamic> getItems = new List();
 
   @override
   double total = 0;
 
   final myController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      proData = ModalRoute.of(context).settings.arguments;
+      if (proData.estadoPedidoId == 3) {
+        _pagar = true;
+      }
+      _getItems(proData);
+    });
+  }
+
+  Future<List<dynamic>> _getItems(PedidosModel proData) async {
+    return await pe.mostrarItems(proData.pedidoId);
+  }
 
   @override
   void dispose() {
@@ -35,12 +54,12 @@ class _ItemsPageState extends State<ItemsPage> {
     final PedidosModel proData = ModalRoute.of(context).settings.arguments;
     String fecha = DateFormat('yyyy-MM-dd').format(proData.pedidoFecha);
     String hora = DateFormat('hh:mm').format(proData.pedidoFecha);
-    void initState() {
-      if (proData.estadoPedidoId == 3) {
-        _pagar = true;
-      }
-      super.initState();
-    }
+    // void initState() {
+    //   if (proData.estadoPedidoId == 3) {
+    //     _pagar = true;
+    //   }
+    //   super.initState();
+    // }
 
     return Scaffold(
       appBar: AppBar(
@@ -125,9 +144,9 @@ class _ItemsPageState extends State<ItemsPage> {
   }
 
   _creatLista(PedidosModel rendi) {
-    return FutureBuilder(
-      future: pe.mostrarItems(rendi.pedidoId),
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+    return StreamBuilder(
+      stream: pe.pedidosStream,
+      builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
         if (snapshot.hasData) {
           final rendici = snapshot.data;
 
@@ -192,6 +211,43 @@ class _ItemsPageState extends State<ItemsPage> {
         ],
       ),
     );
+  }
+
+  mainshowDialog() {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (context) {
+          return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+            title: Column(
+              children: <Widget>[
+                Text('Procesando'),
+              ],
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Divider(
+                  height: 1.0,
+                  color: Colors.grey,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Container(
+                  child: Text('Se esta actaulizando'),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                  onPressed: (() => Navigator.of(context).pop()),
+                  child: Align(widthFactor: 2, child: Text('Aceptar')))
+            ],
+          );
+        });
   }
 
   mainshowDialogAddItems(int id, int cantidad) {
@@ -296,14 +352,14 @@ class _ItemsPageState extends State<ItemsPage> {
             actions: <Widget>[
               FlatButton(
                   onPressed: (() async {
-                    Navigator.of(context).pop();
-                    // CircularProgressIndicator();
+                    print(1111);
+
+                    // mainshowDialog();
                     await pe.actualizarItemsPedido(id, nro);
-                    // print('------------');
-                    // print(info);
-                    // if (info != null) {
-                    //   Navigator.of(context).pop();
-                    // }
+                    final data = await _getItems(proData);
+                    if (data.length != 0) {
+                      Navigator.of(context).pop();
+                    }
                   }),
                   child: Align(widthFactor: 2, child: Text('Aceptar'))),
               FlatButton(

@@ -67,7 +67,7 @@ class PerfilPage extends StatelessWidget {
             ],
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 0.5,
+            height: MediaQuery.of(context).size.height * 0.56,
             padding: EdgeInsets.symmetric(horizontal: 20),
             child: ListView(
               children: [
@@ -112,6 +112,13 @@ class PerfilPage extends StatelessWidget {
                     se.clear();
                     Navigator.pushReplacementNamed(context, 'login');
                   },
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.exit_to_app,
+                      color: Color.fromRGBO(149, 72, 31, 1),
+                    ),
+                    title: Text('Salir'),
+                  ),
                 ),
               ],
             ),
