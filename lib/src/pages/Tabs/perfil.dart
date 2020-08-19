@@ -1,3 +1,4 @@
+import 'package:delipuerta/src/services/eventos_services.dart';
 import 'package:delipuerta/src/util/session.dart';
 import 'package:flutter/material.dart';
 
@@ -6,11 +7,10 @@ import '../Pedido/metodo_pago.dart';
 
 class PerfilPage extends StatelessWidget {
   final prefs = new PreferenciasUsuario();
-
+  final usuarioServices = new UsuarioServices();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //https://www.webconsultas.com/sites/default/files/styles/wc_adaptive_image__small/public/articulos/perfil-resilencia.jpg
       body: Column(
         children: [
           Stack(
@@ -66,17 +66,42 @@ class PerfilPage extends StatelessWidget {
               )
             ],
           ),
-          Container(
-            height: MediaQuery.of(context).size.height * 0.56,
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: ListView(
+          InfoUser(prefs: prefs, usuarioServices: usuarioServices)
+        ],
+      ),
+    );
+  }
+}
+
+class InfoUser extends StatelessWidget {
+  const InfoUser(
+      {Key key, @required this.prefs, @required this.usuarioServices})
+      : super(key: key);
+
+  final PreferenciasUsuario prefs;
+  final UsuarioServices usuarioServices;
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.56,
+      padding: EdgeInsets.symmetric(horizontal: 20),
+      child: FutureBuilder(
+        future: usuarioServices.mostrarUsuario(),
+        builder: (_, snapshot) {
+          if (snapshot.hasData) {
+            final users = snapshot.data;
+            final nombre = users[0]['usuarioNombre'];
+            final apellido = users[0]['usuarioApellido'];
+            final telefono = users[0]['usuarioTelefono'];
+            final correo = users[0]['usuarioCorreo'];
+            return ListView(
               children: [
                 ListTile(
                   leading: Icon(
                     Icons.supervised_user_circle,
                     color: Color.fromRGBO(149, 72, 31, 1),
                   ),
-                  title: Text('Nombre apellido apellido'),
+                  title: Text('$nombre $apellido'),
                 ),
                 Divider(),
                 ListTile(
@@ -84,7 +109,7 @@ class PerfilPage extends StatelessWidget {
                     Icons.email,
                     color: Color.fromRGBO(149, 72, 31, 1),
                   ),
-                  title: Text('correo@correo.com'),
+                  title: Text('$correo'),
                 ),
                 Divider(),
                 ListTile(
@@ -92,7 +117,7 @@ class PerfilPage extends StatelessWidget {
                     Icons.phone,
                     color: Color.fromRGBO(149, 72, 31, 1),
                   ),
-                  title: Text('999-999-999'),
+                  title: Text('$telefono'),
                 ),
                 Divider(),
                 ListTile(
@@ -121,9 +146,11 @@ class PerfilPage extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
-          ),
-        ],
+            );
+          } else {
+            Container();
+          }
+        },
       ),
     );
   }
