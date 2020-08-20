@@ -148,7 +148,7 @@ class InfoUser extends StatelessWidget {
               ],
             );
           } else {
-            Container();
+            return Center(child: CircularProgressIndicator());
           }
         },
       ),
