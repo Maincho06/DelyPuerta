@@ -9,8 +9,9 @@ import 'package:image_picker/image_picker.dart';
 
 class MetodosPago extends StatefulWidget {
   final int pedidoId;
+  final String ruc;
 
-  MetodosPago({Key key, this.pedidoId}) : super(key: key);
+  MetodosPago({Key key, this.pedidoId, this.ruc}) : super(key: key);
 
   @override
   _MetodosPagoState createState() => _MetodosPagoState();
@@ -41,6 +42,19 @@ class _MetodosPagoState extends State<MetodosPago> {
         : Scaffold(
             appBar: AppBar(
               title: Text('Metodo de pago'),
+              actions: [
+                IconButton(
+                    icon: Icon(
+                      Icons.info,
+                      color: Colors.white,
+                    ),
+                    onPressed: () async {
+                      final result =
+                          await _pe.metodosDePagoPorEmpresa(widget.ruc);
+
+                      print(result);
+                    })
+              ],
             ),
             body: Column(
               // mainAxisAlignment: MainAxisAlignment.center,
@@ -60,66 +74,6 @@ class _MetodosPagoState extends State<MetodosPago> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Container(
-                    //   // alignment: Alignment.bottomCenter,
-                    //   child: Container(
-                    //     width: 80,
-                    //     height: 80,
-                    //     child: GestureDetector(
-                    //       child: Image.asset('assets/pedidos/yape.png'),
-                    //       onTap: () async {
-                    //         setState(() {
-                    //           _isloading = true;
-                    //         });
-
-                    //         var image = await ImagePicker.pickImage(
-                    //             source: ImageSource.camera);
-                    //         setState(() {
-                    //           _picture = image;
-                    //         });
-
-                    //         _url = await _pe.agregarimagen(_pedidoId, _picture);
-                    //         if (_url != null) {
-                    //           _mostraimagen(
-                    //               context, 'Quieres enviar esta imagen?', _url);
-                    //           setState(() {
-                    //             _isloading = false;
-                    //           });
-                    //         }
-                    //       },
-                    //     ),
-                    //   ),
-                    // ),
-                    // Container(
-                    //   // alignment: Alignment.bottomCenter,
-                    //   child: Container(
-                    //     width: 80,
-                    //     height: 80,
-                    //     child: GestureDetector(
-                    //       child: Image.asset('assets/pedidos/plin.png'),
-                    //       onTap: () async {
-                    //         setState(() {
-                    //           _isloading = true;
-                    //         });
-
-                    //         var image = await ImagePicker.pickImage(
-                    //             source: ImageSource.camera);
-                    //         setState(() {
-                    //           _picture = image;
-                    //         });
-
-                    //         _url = await _pe.agregarimagen(_pedidoId, _picture);
-                    //         if (_url != null) {
-                    //           _mostraimagen(
-                    //               context, 'Quieres enviar esta imagen?', _url);
-                    //           setState(() {
-                    //             _isloading = false;
-                    //           });
-                    //         }
-                    //       },
-                    //     ),
-                    //   ),
-                    // ),
                     buttonPay(
                         title: 'Yape',
                         url: 'assets/pedidos/yape.png',
@@ -189,41 +143,6 @@ class _MetodosPagoState extends State<MetodosPago> {
                             });
                           }
                         }),
-                    // Container(
-                    //   // alignment: Alignment.bottomCenter,
-                    //   child: Container(
-                    //     width: 80,
-                    //     height: 80,
-                    //     child: GestureDetector(
-                    //       child: ClipRRect(
-                    //         borderRadius: BorderRadius.circular(50),
-                    //         child: Image.asset(
-                    //           'assets/pedidos/transfer1.jpg',
-                    //         ),
-                    //       ),
-                    //       onTap: () async {
-                    //         setState(() {
-                    //           _isloading = true;
-                    //         });
-
-                    //         var image = await ImagePicker.pickImage(
-                    //             source: ImageSource.camera);
-                    //         setState(() {
-                    //           _picture = image;
-                    //         });
-
-                    //         _url = await _pe.agregarimagen(_pedidoId, _picture);
-                    //         if (_url != null) {
-                    //           _mostraimagen(
-                    //               context, 'Quieres enviar esta imagen?', _url);
-                    //           setState(() {
-                    //             _isloading = false;
-                    //           });
-                    //         }
-                    //       },
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
                 SizedBox(
@@ -236,7 +155,6 @@ class _MetodosPagoState extends State<MetodosPago> {
 
   Widget buttonPay({String url, Function onPress, String title}) {
     return Container(
-      // alignment: Alignment.bottomCenter,
       child: Column(
         children: [
           Container(
@@ -268,7 +186,6 @@ class _MetodosPagoState extends State<MetodosPago> {
   Widget vistaPay() {
     return (_url == null)
         ? Container(
-            // height: 120,
             height: MediaQuery.of(context).size.height * 0.5,
             child: Image.asset(
               'assets/pedidos/pagar-directa.png',

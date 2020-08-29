@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:delipuerta/src/models/items_model.dart';
+import 'package:delipuerta/src/models/pagos_modal.dart';
 import 'package:delipuerta/src/models/pedido_model.dart';
 import 'package:delipuerta/src/share_prefs/preferencias.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -173,7 +174,7 @@ class PerdidosServices {
 
   insertarItem(int id, int cantidad, int idPedido) async {
     final items = new List();
-    print(id);
+
     final urlTemp = '$url/Pedido/InsertarItem';
     final response = await http.get(urlTemp, headers: {
       "Content-Type": "application/json",
@@ -198,7 +199,6 @@ class PerdidosServices {
 
   Future<List<ItemsModel>> actualizarItemsPedido(int id, int cantidad) async {
     final items = new List();
-    print(id);
     final cuerpo = {
       "itemId": id,
       "cantidad": cantidad,
@@ -212,24 +212,39 @@ class PerdidosServices {
     });
 
     final decodeResp = jsonDecode(response.body);
-    // print(decodeResp);
-    print(2222);
+
     if (decodeResp == null) return [];
-    print(3333);
+
     if (response.statusCode == 200 && decodeResp != null) {
-      print(4444);
       decodeResp.forEach((id) {
         final prodTemp = ItemsModel.fromJson(id);
         items.add(prodTemp);
       });
 
-      print('---------');
-      print(items);
-      print('------------');
-
       _pedidos.clear();
       _pedidos.addAll(items);
       pedidosSink(_pedidos);
+      return items;
+    }
+  }
+
+  Future<List<PagosModal>> metodosDePagoPorEmpresa(String empresaId) async {
+    // final eventos = new List();
+    final urlTemp = '$url/Producto/metodosDePagoPorEmpresa/$empresaId';
+    final response = await http.get(urlTemp, headers: {
+      "Content-Type": "application/json",
+      "authorization": _prefs.token
+    });
+    final List<PagosModal> items = new List();
+    final decodeResp = jsonDecode(response.body);
+
+    if (decodeResp == null) return [];
+    if (response.statusCode == 200 && decodeResp != null) {
+      decodeResp.forEach((id) {
+        final prodTemp = PagosModal.fromJson(id);
+        items.add(prodTemp);
+      });
+
       return items;
     }
   }
